@@ -1,0 +1,213 @@
+%Created by Fredrik Nilsson - freni169 with additions by Johan Billman - johbi142
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{alltt}
+\usepackage[T1]{fontenc}
+\usepackage[swedish]{babel}
+\usepackage{mathtools}
+\usepackage{lmodern}
+\usepackage{units}
+\usepackage{icomma}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{bbm}
+\usepackage{tabularx}
+\newcommand{\N}{\ensuremath{\mathbbm{N}}}
+\newcommand{\Z}{\ensuremath{\mathbbm{Z}}}
+\newcommand{\Q}{\ensuremath{\mathbbm{Q}}}
+\newcommand{\R}{\ensuremath{\mathbbm{R}}}
+\newcommand{\C}{\ensuremath{\mathbbm{C}}}
+\newcommand{\rd}{\ensuremath{\mathrm{d}}}
+\newcommand{\id}{\ensuremath{\,\rd}}
+\usepackage{hyperref}
+\usepackage[noindentafter]{titlesec}
+\usepackage{color}
+\usepackage{mathtools}
+\usepackage{float}
+
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+% Swap the definition of \abs* and \norm*, so that \abs
+% and \norm resizes the size of the brackets, and the 
+% starred version does not.
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+\makeatother
+
+\renewcommand{\abstractname}{Sammanfattning}
+
+
+\setlength\parindent{0pt} %%NOINDENT
+
+
+
+\title{TDDC74 -  Projektspecifikation}
+
+\author{\textbf{Projektmedlemmar:}\\
+Henrik Österman \small{henos134@student.liu.se}\\
+Erik Bäcklund Ekvall \small{eriek286@student.liu.se}\\ 
+\bigskip\\ \textbf{Handledare:}\\
+Johannes Schmidt {\small johannes.schmidt@liu.se}}
+
+\date{\today}
+\begin{document}
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Projektplanering}
+%\textit{Den här delen skriver ni i samband med första inlämningen}\\
+
+The project is supposed to result in a game-engine made specially for making 2D roleplaying games. 
+The focus is on making tools to rapidly produce simple games.
+
+The code will be object-oriented primarily, using multiple inheritance but functional code and meta code will also be a part of the project. As an example we intend to write our own scripting language which will be functional.
+
+% Ge en kort inledning till projektet (vad är det för spel, vad går det ut på, ...). Det ska vara kort och koncist men ge en tillräcklig förklaring till vad spelet går ut på.
+
+\subsection{Kort projektbeskrivning}
+%\textit{Den här delen skriver ni i samband med första inlämningen}\\
+
+A 2D RPG game engine with tools.
+Examples of tools are a scripting language for making dialogue, pre-existing class structure which allows quick and easy creation of new objects, a simple graphic interface etc.
+
+We recommend looking at IceBlink Engine and Final Fantasy 4-6 for examples of the type of engine we will try to achieve.
+
+% Om ni skriver ett spel, ge en lite mer genomgående förklaring av spelet och hur det spelas. Om ni gör ett äventyrsspel, inkludera en historia till spelet. Det är bra om ni har en någorlunda omfattande historia så ni har något att utgå från senare \(mer om detta under ADT nedan\). I andra fall kan ni förklara olika scenarios i spelet eller hur det spelas. Till exempel: \"Brickor trillar ned från över delen av skärmen. Dessa kan roteras och målet är att stapla dessa i nedre delen av skärmen och bilda rader.\". Eventuella regler för spelet är även bra att förklara här (för schack till exempel).
+
+\subsection{Utvecklingsmetodik}
+%\textit{Den här delen skriver ni i samband med första inlämningen}\\
+
+We will develop our software following Agile development philosophy.
+
+We will work separately the majority of the time and later have follow-up meetings. In practice this will result in us working in the same room but separately so we can communicate progress as it happens.
+We will use git for revision control. The git repo can be found at www.github.com/zappater/riverengine/.
+
+% Hur tänker ni jobba? Ska ni dela upp hur ni skriver koden? Hur kommunicerar ni? Hur delar ni koden mellan varandra och ser till att den är tillgänglig, även om en projektmedlem är sjuk eller borta (ett vanligt problem som uppstår, därför är det viktigt att ni planerar inför detta tidigt)? Tänker ni versionshantera koden (till exempel med subversion eller git)? Jobba kvällar? Helger? Hur lång tid tror ni projektet kommer kräva (bifoga gärna en ungefärlig timplan om ni kan)?
+
+\subsection{Grov tidplan}
+%\textit{Den här delen skriver ni i samband med första inlämningen}\\
+
+This part needs a few physical attachments, they will be included for the second project specification deadline.
+We have a plan, we just can't include it at this stage (this is the problem with having assignments due during holidays).
+
+% Hur ska tiden fördelas? Vad bör göras först? Försök att hålla det på nivån vad gör vi nu direkt, vad ska vara klart till halvtidsmötet och vad sker efter halvtidsmötet. Tänk på att lägga er plan så att ni kan testa projektet så tidigt som möjligt.
+
+\subsection{Betygsambitioner}
+%\textit{Den här delen skriver ni i samband med första inlämningen}\\
+
+We will only attempt to achieve the grade 3 on the project as we both already have a 5 in the course from the exams. This allows us to let other courses take more time if they need to.
+However we expect to achieve a 5 on the project if we aren't distracted by other courses.
+
+\section{Konceptskiss}
+%\textit{Denna del har ni enbart med i projektspecen, ej i slutinlämningen.}\\
+
+We will need to add a few physical attachments to this as well.
+Look at IceBlink engine for a concept sketch, however we will keep the graphics very simple.
+
+% Ge en skiss över tänkt utdata. Gör ni ett grafiskt spel eller program, ge en grov (ritad) skiss över hur det kan se ut. Skriver ni ett textbaserat program, ge påhittad data från en exempelkörning.
+
+
+%\section{Användarmanual}
+%\textit{Den här delen skriver ni inför slutinlämningen}\\
+
+%När ni har implementerat ett spel så krävs det en manual som förklarar hur spelet fungerar. Ni ska beskriva spelets olika delar och hur interaktionen fungerar (om mus används, tangentbord, vilka knappar som är aktuella, etc). Inkludera skärmdumpar, som visar hur spelet ser ut. Det ska åtminstone finnas en icke-modifierad bild av spelet. Ett tips i övrigt kan vara att ha en extra bild, ringa in och markera intressanta områden med siffror/färger och beskriva dessa i en prydlig tabell.
+%Viktigt: Skriv hur man startar spelet! Vilken fil ska man ladda in och vilken procedur startar man spelet med (om någon sådan)?
+
+\subsection{Kravlista}
+%\textit{Den här delen skriver ni i samband med första inlämningen}\\
+We will add to this part as well.
+\bigskip
+
+\begin{tabular}{|c|c|c|}
+\hline
+\# & \textbf{Beskrivning} & \textbf{Prioritet} \\ \hline
+1 & A system which deals with the world. & A \\ \hline
+2 & Support user defined objects. & A \\ \hline
+3 & Support 2D graphics. & A \\ \hline
+4 & Support user input. & A \\ \hline
+5 & Support turn based combat. & A \\ \hline
+6 & Allow the user to create dialogue using a built-in scripting language. & A \\ \hline
+\end{tabular}
+
+\bigskip
+%även om det finns många triviala ”krav” som kan läggas till (”spelet skall styras med musen”, ...), försök hitta bra krav som återspeglar de karaktäristiska dragen som finns hos ert spel. Eftersom ni under kapitlet ”Arbetsmetodik” har redogjort för önskat betyg, så kan ni genom kraven skapa en övertygelse om att det är just det betyget ni ska ha. Vid osäkerhet kan ni fråga er handledare om råd och tips.
+
+More to come.
+
+\section{Implementation}
+%Det här kapitlet använder ni för att beskriva hur spelet är strukturerat och implementerat. Dels ska ni förklara de abstrakta datatyper ni använder, men även hur dessa används i er kod. Algoritmer och övergripande design passar också in i det här kapitlet (bilder, flödesdiagram, osv. är rekommenderat men ej något krav). Den här delen kan ni strukturera upp enligt egna preferenser. Skapa gärna egna delkapitel för enskilda delar, om det underlättar.
+
+\subsection{Abstrakta datatyper eller klasser}
+%\textit{Den här delen skriver ni i samband med första inlämningen och uppdatera inför slutinlämningen}\\
+
+Classes: Worlds, Items, NPCs, Player Characters, World objects, Abilities. All of these with their own subclasses.
+
+Dialogue will be a datatype of some sort, we are not really sure for example we might implement it as a tree or as a graph.
+
+
+%Fundera ut vilka datatyper ni behöver för att implementera spelet. Har ni äventyrsspel och skrivit en bra spelhistoria så har ni vunnit mycket. I princip kan ni bara stryka under substantiv i texten så har ni hittat de flesta datatyperna ni behöver. Beskriv ytterligare hur datatyperna ska kunna användas. Kom ni fram till att ni behöver en stack, så fyller ni på med de procedurer som stacken behöver (till exempel push, pop och size). Hitta ett bra sätt att förklara dessa, gärna tabeller. Det ska vara lättöverskådligt så ni snabbt kan slå upp era procedurer här. Detta kapitel behöver inte vara komplett nu, det viktigaste är att ni börjat tänka på hur ni ska göra. Om ni jobbar mycket med detta kapitel så är det i stort sett bara att sätta igång och koda sen, vilket gör att ni sparar mycket tid. Denna delen fyller ni på ytterligare när ni lämnar in dokumentet igen vid mittavstämningen.
+
+\subsection{Testning}
+%\textit{Den här delen skriver ni i samband med första inlämningen}\\
+
+We don't know yet, let us prototype the software first.
+
+%\subsection{Beskrivning av implementationen}
+%\textit{Den här delen skriver ni inför slutinlämningen}\\
+
+%Här ska ni förklara hur era datastrukturer och algoritmer fungerar. Det bästa sättet att tänka är lite grann ur någon annan grupps perspektiv. Vad skulle någon annan behöva veta för att förstå en viss del av spelet eller dess implementation? Ni får själva försöka hitta alla dessa delar genom att ställa er själva frågor och studera er kod. Till exempel: "Vad behöver jag veta för att förstå hur rotationsproceduren i mitt Tetris fungerar?".
+%Tanken är inte att ni ska skriva och svara på frågor. Detta kan ni snarare se som hjälp för att skriva denna delen. Det finns även ytterligare resurser på kurshemsidan, där ni kan hämta inspiration.
+
+%\section{Utvärderingar och erfarenheter}
+%\textit{Den här delen skriver ni inför slutinlämningen}\\
+
+%Detta avsnittet är en väldigt viktig del av projektspecifikationen. Här ska ni tänka tillbaka och utvärdera projektet (något som alltid ska göra efter ett projekt). Som en hjälp på vägen kan ni utgå från följande frågeställningar:
+
+%\begin{itemize}
+%\item Vad gick bra? Mindre bra?
+%\item Lade ni ned för mycket/lite tid?
+%\item Var arbetsfördelningen jämn? Om inte: Vad hade ni kunnat göra för att förbättra den?
+%\item Har ni haft någon nytta av specifikationen? Vad har varit mest användbart med den? Minst?
+%\item Har arbetet fungerat som ni tänkt er? Har ni följt "arbetsmetodiken"? Något som skiljer sig? Till det bättre? Till det sämre?
+%\item Vad har varit mest problematiskt, om man utesluter den programmeringstekniska delen? Alltså saker runt omkring, som att hitta ledig tid eller plats att vara på.
+%\item Vad har ni lärt er så här långt som kan vara bra att ta med till kommande kurser/projekt?
+%\end{itemize}
+
+
+\section{Tidrapportering}
+%\textit{Den här delen skriver ni i samband med första inlämningen och uppdaterar efterhand}\\
+
+Can be found in separate spreadsheet, which will be found in our SVN/git-repository.
+So far we have each spent 10 hours on planning this project and this specification.
+
+%För att veta hur mycket ni har jobbat med projektet, notera antalet timmar och bifoga en timrapport. Börja med detta så fort ni kommit igång med projektspecifikationen! Det är viktigt att ni är ärliga när ni bokför era timmar. Ni lurar bara er själva genom att antingen skriva in mer eller mindre tid, beroende på hur arbetet fortlöpt. Tanken med timrapporteringen är att ni ska få en bättre känsla för hur lång tid en viss uppgift tar att slutföra.
+%Eftersom projektet är ganska litet behöver ni inte göra en speciellt omfattande timrapport. Det räcker med att ni för varje vecka noterar hur många timmar som varje gruppmedlem har arbetat. Notera gärna vad för typ av arbetsuppgift som har utförts. Exempelvis kan ni presentera timmarna i en tabell på följande vis:
+%\subsection{Person 1}
+%\begin{tabular}{|c|c|c|}
+%\hline
+%Vecka & \textbf{Arbetsuppgift} & \textbf{Tid(h)} \\ \hline
+%12 & Skrivit kravspec & 5 \\ \hline
+%13 & Implementerat \textit{person}-ADT:n & 2 \\ \hline
+%\end{tabular}
+
+%\subsection{Person 2}
+%\begin{tabular}{|c|c|c|}
+%\hline
+%Vecka & \textbf{Arbetsuppgift} & \textbf{Tid(h)} \\ \hline
+%12 & Skrivit kravspec & 5 \\ \hline
+%13 & Implementerat \textit{person}-ADT:n & 2 \\ \hline
+%\end{tabular}
+%\\\\
+%Se till att ni håller timrapporterna uppdaterade. I samband med mittavstämningen kommer ni skicka in timrapporten till er handledare!
+
+
+\end{document}
