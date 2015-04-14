@@ -69,7 +69,7 @@ Johannes Schmidt {\small johannes.schmidt@liu.se}}
 The project is supposed to result in a game-engine made specially for making 2D roleplaying games. 
 The focus is on making tools to rapidly produce simple games.
 
-The code will be object-oriented primarily, using multiple inheritance but functional code and meta code will also be a part of the project. As an example we intend to write our own scripting language which will be functional.
+The code will be object-oriented primarily, using multiple inheritance but functional code will also be a part of the project. As an example we intend to write our own scripting language which will be functional.
 
 % Ge en kort inledning till projektet (vad är det för spel, vad går det ut på, ...). Det ska vara kort och koncist men ge en tillräcklig förklaring till vad spelet går ut på.
 
@@ -77,7 +77,7 @@ The code will be object-oriented primarily, using multiple inheritance but funct
 %\textit{Den här delen skriver ni i samband med första inlämningen}\\
 
 A 2D RPG game engine with tools.
-Examples of tools are a scripting language for making dialogue, pre-existing class structure which allows quick and easy creation of new objects, a simple graphic interface etc.
+Examples of tools are a scripting language for making dialogue, pre-existing class structure which allows quick and easy creation of new objects etc.
 
 We recommend looking at IceBlink Engine and Final Fantasy 4-6 for examples of the type of engine we will try to achieve.
 
@@ -85,8 +85,6 @@ We recommend looking at IceBlink Engine and Final Fantasy 4-6 for examples of th
 
 \subsection{Utvecklingsmetodik}
 %\textit{Den här delen skriver ni i samband med första inlämningen}\\
-
-We will develop our software following Agile development philosophy.
 
 We will work separately the majority of the time and later have follow-up meetings. In practice this will result in us working in the same room but separately so we can communicate progress as it happens.
 We will use git for revision control. The git repo can be found at www.github.com/zappater/riverengine/.
@@ -96,8 +94,7 @@ We will use git for revision control. The git repo can be found at www.github.co
 \subsection{Grov tidplan}
 %\textit{Den här delen skriver ni i samband med första inlämningen}\\
 
-This part needs a few physical attachments, they will be included for the second project specification deadline.
-We have a plan, we just can't include it at this stage (this is the problem with having assignments due during holidays).
+We will implement one version of both the graphics engine and game engine every week. By the half time meeting we will be working on version 3. Information about what the versions contain can be in the document 'Version.org'.
 
 % Hur ska tiden fördelas? Vad bör göras först? Försök att hålla det på nivån vad gör vi nu direkt, vad ska vara klart till halvtidsmötet och vad sker efter halvtidsmötet. Tänk på att lägga er plan så att ni kan testa projektet så tidigt som möjligt.
 
@@ -110,8 +107,11 @@ However we expect to achieve a 5 on the project if we aren't distracted by other
 \section{Konceptskiss}
 %\textit{Denna del har ni enbart med i projektspecen, ej i slutinlämningen.}\\
 
-We will need to add a few physical attachments to this as well.
-Look at IceBlink engine for a concept sketch, however we will keep the graphics very simple.
+For the developer: A lot of code, more like a library than anything else.
+
+For the player: A lot like Final Fantasy, look at the picture and use your imagination.
+\includegraphics{Koncept_sketch}
+
 
 % Ge en skiss över tänkt utdata. Gör ni ett grafiskt spel eller program, ge en grov (ritad) skiss över hur det kan se ut. Skriver ni ett textbaserat program, ge påhittad data från en exempelkörning.
 
@@ -124,24 +124,22 @@ Look at IceBlink engine for a concept sketch, however we will keep the graphics 
 
 \subsection{Kravlista}
 %\textit{Den här delen skriver ni i samband med första inlämningen}\\
-We will add to this part as well.
+
 \bigskip
 
 \begin{tabular}{|c|c|c|}
 \hline
 \# & \textbf{Beskrivning} & \textbf{Prioritet} \\ \hline
-1 & A system which deals with the world. & A \\ \hline
-2 & Support user defined objects. & A \\ \hline
-3 & Support 2D graphics. & A \\ \hline
-4 & Support user input. & A \\ \hline
-5 & Support turn based combat. & A \\ \hline
-6 & Allow the user to create dialogue using a built-in scripting language. & A \\ \hline
+1 & NPC dialogue read from file and scripted using its own language & A \\ \hline
+2 & Scripting language for making objects & A \\ \hline
+3 & Simple graphic editor & B \\ \hline
+4 & 2D graphics engine & A \\ \hline
+5 & Scripting language for controlling UI & A \\ \hline
+6 & Support for animations & B \\ \hline
 \end{tabular}
 
 \bigskip
 %även om det finns många triviala ”krav” som kan läggas till (”spelet skall styras med musen”, ...), försök hitta bra krav som återspeglar de karaktäristiska dragen som finns hos ert spel. Eftersom ni under kapitlet ”Arbetsmetodik” har redogjort för önskat betyg, så kan ni genom kraven skapa en övertygelse om att det är just det betyget ni ska ha. Vid osäkerhet kan ni fråga er handledare om råd och tips.
-
-More to come.
 
 \section{Implementation}
 %Det här kapitlet använder ni för att beskriva hur spelet är strukturerat och implementerat. Dels ska ni förklara de abstrakta datatyper ni använder, men även hur dessa används i er kod. Algoritmer och övergripande design passar också in i det här kapitlet (bilder, flödesdiagram, osv. är rekommenderat men ej något krav). Den här delen kan ni strukturera upp enligt egna preferenser. Skapa gärna egna delkapitel för enskilda delar, om det underlättar.
@@ -149,17 +147,24 @@ More to come.
 \subsection{Abstrakta datatyper eller klasser}
 %\textit{Den här delen skriver ni i samband med första inlämningen och uppdatera inför slutinlämningen}\\
 
-Classes: Worlds, Items, NPCs, Player Characters, World objects, Abilities. All of these with their own subclasses.
+Act: Contains information about what should be read in to memory. It has a type (game or UI). An act contains a n-dimensional vector (in the mathematical meaning) of levels. A game is a collection of acts.
 
-Dialogue will be a datatype of some sort, we are not really sure for example we might implement it as a tree or as a graph.
 
+Level: A level is a collection of pointers to objects which are in the same interactionlevel and will be drawn in the same layer by the graphics engine. The difference between interactionlevel and layer is that a interactionlevel determines what the player can interact with while a layer determines when the graphics engine draws the object.
+
+
+Classes: Items, NPCs, Player Character, World Objects, Sprites, Background. All of these with their own subclasses.
+
+Dialogue will be its own type of ADT. In essence it will be a graph implemented using linked-lists and contained in one or several textfiles. 
 
 %Fundera ut vilka datatyper ni behöver för att implementera spelet. Har ni äventyrsspel och skrivit en bra spelhistoria så har ni vunnit mycket. I princip kan ni bara stryka under substantiv i texten så har ni hittat de flesta datatyperna ni behöver. Beskriv ytterligare hur datatyperna ska kunna användas. Kom ni fram till att ni behöver en stack, så fyller ni på med de procedurer som stacken behöver (till exempel push, pop och size). Hitta ett bra sätt att förklara dessa, gärna tabeller. Det ska vara lättöverskådligt så ni snabbt kan slå upp era procedurer här. Detta kapitel behöver inte vara komplett nu, det viktigaste är att ni börjat tänka på hur ni ska göra. Om ni jobbar mycket med detta kapitel så är det i stort sett bara att sätta igång och koda sen, vilket gör att ni sparar mycket tid. Denna delen fyller ni på ytterligare när ni lämnar in dokumentet igen vid mittavstämningen.
 
 \subsection{Testning}
 %\textit{Den här delen skriver ni i samband med första inlämningen}\\
 
-We don't know yet, let us prototype the software first.
+Unit tests will be created as the engine is developed, we are not yet able to specify unit tests.
+
+We will test the system by making a simple techdemo in it. It will contain 1 PC, 2 NPCs with dialogue, 1 interactive world object, 1 item. It will be made in 2 acts.
 
 %\subsection{Beskrivning av implementationen}
 %\textit{Den här delen skriver ni inför slutinlämningen}\\
@@ -186,8 +191,8 @@ We don't know yet, let us prototype the software first.
 \section{Tidrapportering}
 %\textit{Den här delen skriver ni i samband med första inlämningen och uppdaterar efterhand}\\
 
-Can be found in separate spreadsheet, which will be found in our SVN/git-repository.
-So far we have each spent 10 hours on planning this project and this specification.
+Can be found in separate spreadsheet, which will be found in our git repository.
+So far we have each spent 20 hours on planning this project and this specification.
 
 %För att veta hur mycket ni har jobbat med projektet, notera antalet timmar och bifoga en timrapport. Börja med detta så fort ni kommit igång med projektspecifikationen! Det är viktigt att ni är ärliga när ni bokför era timmar. Ni lurar bara er själva genom att antingen skriva in mer eller mindre tid, beroende på hur arbetet fortlöpt. Tanken med timrapporteringen är att ni ska få en bättre känsla för hur lång tid en viss uppgift tar att slutföra.
 %Eftersom projektet är ganska litet behöver ni inte göra en speciellt omfattande timrapport. Det räcker med att ni för varje vecka noterar hur många timmar som varje gruppmedlem har arbetat. Notera gärna vad för typ av arbetsuppgift som har utförts. Exempelvis kan ni presentera timmarna i en tabell på följande vis:

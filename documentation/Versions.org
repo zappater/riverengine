@@ -1,0 +1,58 @@
+We use swedish theather terms for game objects to avoid confusion with programming and math terminology.
+This is also why the rest of this document is in swedish.
+Vi är klara med motorn när Version 4 av Grafikmotorn och Spelmotorn är gjorda.
+
+* Grafikmotorn
+Vi antar att grafiken kan ta mycket tid att implementera och vara svår.
+Den har även fördelen att vara helt separat från resten av spelmotorn.
+Därför väljer vi att ge grafiken en egen version som implementeras i steg utifrån vår förmåga.
+
+** Version 1
+Texturhantering (vad är inläst/inte inläst)
+Texthantering
+Inläsning av akter
+
+** Version 2
+Rita akt
+
+** Version 3
+UI
+Objektsystem för UI
+
+** Version 4
+Scriptspråk för UI
+
+** Version 5 (optional)
+Animationer implementerade.
+
+
+* Spelmotorn
+** Version 1
+Spelaren kan röra sig (dvs vi kan hantera grundläggande input)
+Stöd för en akt (dvs inga övergångar)
+Grundläggande objektsystem för spelbara karaktärer
+Grundläggande objektsystem för NPC
+Grundläggande objektsystem för kulisser (interagerbara objekt i världen)
+Grundläggande stöd för dialog, dvs NPCer kan säga en sak.
+
+** Version 2
+Fullt stöd för input, dvs all funktionalitet som är implementerad ska kunna användas här efter.
+NPC dialog läses in från fil, dvs ej hårdkodad.
+Grundläggande objektsystem för rekvesita (dvs föremål karaktärerna kan bara på)
+Grundläggande objektsystem för fonder (bakgrunder)
+Grundläggande objektsystem för dekor (icke interagerbara objekt)
+System för collision-detection.
+
+** Version 3
+NPC dialog implementerad som graf genom lista.
+Flera akter, dvs övergångar implementeras.
+Scriptspråk för objekt.
+
+** Version 4
+Scriptspråk för dialog implementerat.
+Combat via dialog (för vi vill inte implementera den).
+
+** Version 5 (optional)
+Combat börjar implementeras.
+Grundläggande objektsystem för förmågor/abilities.
+Enkel grafisk editor för akter.
