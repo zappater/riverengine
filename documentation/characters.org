@@ -1,0 +1,17 @@
+* Char%
+Skall innehålla:
+Textur (default "svart blob bild")
+Animationer (en associativ lista, default ())
+Interaction (default (void))
+Movement
+Uppspelning av animationer
+Plats
+Where-Am-I? (funktion som kollar vart karaktären är).
+Update-My-Pos! 
+** Att göra
+Implementera Texturer
+Animationer
+Interaction
+Movement
+Uppspelning av animationer
+

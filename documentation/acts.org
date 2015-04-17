@@ -1,0 +1,2 @@
+* Act%
+Har en typ (ex: game-act)
