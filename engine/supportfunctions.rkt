@@ -1,0 +1,17 @@
+#lang racket
+(provide (all-defined-out))
+
+(define nth (lambda (pos lst)
+              (if (<= pos 1)
+                  (car lst)
+                  (nth (- pos 1) (cdr lst)))))
+(define mnth (lambda (pos lst)
+              (if (<= pos 1)
+                  (mcar lst)
+                  (mnth (- pos 1) (mcdr lst)))))
+(define (lvl-cor pos)
+  (first pos))
+(define (y-cor pos)
+  (second pos))
+(define (x-cor pos)
+  (third pos))

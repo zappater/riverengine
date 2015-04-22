@@ -7,7 +7,9 @@ Movement
 Uppspelning av animationer
 Plats
 Where-Am-I? (funktion som kollar vart karaktären är).
-Update-My-Pos! 
+Update-My-Pos! (kollar vart karaktären är enligt akten och uppdaterar positionen)
+Set-My-Pos! (ska endast kunna köras av Act% objekt)
+
 ** Att göra
 Implementera Texturer
 Animationer
