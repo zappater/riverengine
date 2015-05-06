@@ -1,4 +1,8 @@
 #lang racket
+(provide (all-defined-out))
+(require "leveldatastructure.rkt")
+(require "supportfunctions.rkt")
+(require "globals.rkt")
 (define act%
   (class object%
     (super-new)
@@ -51,4 +55,5 @@
           (begin (level-clear-pos! (get-level pos) (cdr pos))
                  (send obj set-pos! #f this))
           (void)))))
+
     

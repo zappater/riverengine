@@ -1,8 +1,10 @@
 #lang racket
-(define *current-act* first-act%)
+(provide (all-defined-out))
 
-(define (change-act to)
+(define *current-act* #f)
+
+#| (define (change-act to)
   (if (transition? to) 
       ;transition? måste skapas, uppgift att kolla om en övergång finns mellan *current-act* och den spelaren vill till
       (set! *current-act* to)
-      (error "you can't go there")))
+      (error "you can't go there"))) |#

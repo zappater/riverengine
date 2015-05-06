@@ -1,4 +1,5 @@
 #lang racket
+(provide (all-defined-out))
 (require "supportfunctions.rkt")
 (require compatibility/mlist)
 (define (make-new-level y-dim x-dim) 
@@ -39,15 +40,13 @@
   (lambda (level obj)
         (if (null? level)
             #f
-            (let ((pos (mcdr (massoc (mcar level) obj))))
+            (let ((pos (massoc obj (mcar level))))
               (if pos ;om positionen existerar så är den sann
-                  pos ;i så fall returnerar vi positonen
+                  (mcdr pos) ;i så fall returnerar vi positonen
                   ;annars går vi vidare i listan
                   (level-find-obj (mcdr level)
                                        obj))))))
 
 
 
-;test
-(define test-level (make-new-level 6 5))
-(level-set-object-at-pos! test-level (list 6 5) 'hej)
+
