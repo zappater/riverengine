@@ -1,5 +1,6 @@
 #lang racket
 (require "supportfunctions.rkt")
+(require compatibility/mlist)
 (define (make-new-level y-dim x-dim) 
   ;Retrunerar en blank level med storleken x-dim x x-dim
   ;ges som (make-new-level y-dim x-dim) ex (make-new-level 5 7)
@@ -27,14 +28,26 @@
 
 (define level-get-val-from-pos
   (lambda (lvl pos)
-    (mcar (mnth (car (cdr pos)) (mnth (car pos) lvl)))))
+    (mcar (mnth (car (cdr pos))
+                (mnth (car pos) lvl)))))
 
 (define level-clear-pos! 
   (lambda (lvl pos)
     (level-set-object-at-pos! lvl pos '())))
 
+(define level-find-obj
+  (lambda (level obj)
+        (if (null? level)
+            #f
+            (let ((pos (mcdr (massoc (mcar level) obj))))
+              (if pos ;om positionen existerar så är den sann
+                  pos ;i så fall returnerar vi positonen
+                  ;annars går vi vidare i listan
+                  (level-find-obj (mcdr level)
+                                       obj))))))
+
+
 
 ;test
 (define test-level (make-new-level 6 5))
 (level-set-object-at-pos! test-level (list 6 5) 'hej)
-    
