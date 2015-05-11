@@ -30,16 +30,16 @@ Animationer implementerade.
 ** Version 1
 *** TODO Spelaren kan röra sig (dvs vi kan hantera grundläggande input)
 *** DONE Stöd för en akt (dvs inga övergångar)
-*** TODO Grundläggande objektsystem för spelbara karaktärer
+*** DONE Grundläggande objektsystem för spelbara karaktärer
 *** DONE Grundläggande objektsystem för NPC
 *** TODO Grundläggande objektsystem för kulisser (interagerbara objekt i världen)
-*** TODO Grundläggande stöd för dialog, dvs NPCer kan säga en sak.
+*** DONE Grundläggande stöd för dialog, dvs NPCer kan säga en sak.
 
 ** Version 2
-Fullt stöd för input, dvs all funktionalitet som är implementerad ska kunna användas här efter.
-NPC dialog läses in från fil, dvs ej hårdkodad.
-Grundläggande objektsystem för rekvesita (dvs föremål karaktärerna kan bära på)
-Grundläggande objektsystem för fonder (bakgrunder)
+*** TODO Fullt stöd för input, dvs all funktionalitet som är implementerad ska kunna användas här efter.
+*** TODO NPC dialog läses in från fil, dvs ej hårdkodad.
+*** TODO Grundläggande objektsystem för rekvesita (dvs föremål karaktärerna kan bära på)
+*** TODO Grundläggande objektsystem för fonder (bakgrunder)
 *** DONE Grundläggande objektsystem för dekor (icke interagerbara objekt)
 *** DONE System för collision-detection.
 
