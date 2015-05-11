@@ -4,6 +4,7 @@
 (require "globals.rkt")
 (require "leveldatastructure.rkt")
 (require "granpaclass.rkt")
+(require "PCclass.rkt")
 (require compatibility/mlist)
 
 
@@ -27,3 +28,10 @@
   (new char%
        [name "pappa"]
        [use "hej"]))
+
+(define dig
+  (new PC%
+       [name "J"]
+       [facing 'down]))
+(send dig move-me '(2 1 1))
+(send pappa move-me '(2 2 1))
