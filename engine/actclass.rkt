@@ -45,19 +45,20 @@
                          (send obj set-pos! new-cor this)))
               (void))
           (error "not a valid position")))
-      
-      (define/public (available? cor) ;kollar om en plats är ledig
-        (null? (get-obj-at-pos cor))) ;public ifall objekt vill använda den men inte skadligt ifall annars
-      
-      (define/private (get-level pos)
-        (mnth (lvl-cor pos) levels))
-      
-      (define/public (remove-obj obj pos)
-        (if (eq? obj (get-obj-at-pos pos)) ;om objektet verkligen är på den positionen, då tar man bort objektet, annars inte
-            (begin (level-clear-pos! (get-level pos) (cdr pos))
-                   (send obj set-pos! #f this))
-            (void)))
-      (define/public (get-name)
-        name)))
-  
-  
+    
+    (define/public (available? cor) ;kollar om en plats är ledig
+      (null? (get-obj-at-pos cor))) ;public ifall objekt vill använda den men inte skadligt ifall annars
+    
+    (define/private (get-level pos)
+      (mnth (lvl-cor pos) levels))
+    
+    (define/public (remove-obj obj pos)
+      (if (false? pos)
+          (void)
+          (if (eq? obj (get-obj-at-pos pos)) ;om objektet verkligen är på den positionen, då tar man bort objektet, annars inte
+              (begin (level-clear-pos! (get-level pos) (cdr pos))
+                     (send obj set-pos! #f this))
+              (void))))
+    (define/public (get-name)
+      name)))
+

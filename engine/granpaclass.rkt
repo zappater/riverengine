@@ -15,18 +15,22 @@
           position
           (begin (update-pos!)
                  position)));om han inte är där han tror han är, ber han acten leta reda på vart han är
-  (define/private (update-pos!)
-    (set! position (send *current-act* get-obj-pos this)))
-  (define/public (set-pos! new-pos obj)
-    (if (eq? (send obj get-type) 'game-act) ;är det en akt som använder funktionen?
-        (set! position new-pos) ;i så fall updatera positionen
-        (void))) ;annars gör inget
-  (define/public (move-me position)
-    (send *current-act* move-obj this (my-pos) position))
-  (define/public (get-name)
-    name)
-  
-  ;DEBUG!!!!!!!
-  (define/public (debug-get-pos)
-    position)))
+    (define/private (update-pos!)
+      (set! position (send *current-act* get-obj-pos this)))
+    (define/public (set-pos! new-pos obj)
+      (if (eq? (send obj get-type) 'game-act) ;är det en akt som använder funktionen?
+          (set! position new-pos) ;i så fall updatera positionen
+          (void))) ;annars gör inget
+    (define/public (move-me position)
+      (send *current-act* move-obj this (my-pos) position))
+    (define/public (get-name)
+      name)
+    (define/public (interact) 
+      ;alla objekt kan interageras med men som standard händer inget
+      ;använd override för att ge olika classer olika interacts
+      (void))
+    
+    ;DEBUG!!!!!!!
+    (define/public (debug-get-pos)
+      position)))
 
