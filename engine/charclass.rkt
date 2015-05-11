@@ -8,22 +8,24 @@
   (class granpa%
     (super-new)
     (init-field [hp 100]
-                [description "common existance"]
+                [description "some existances just aren't that interesting"]
                 [inventory #f]
                 [use (void)]
-                [facing 'up]) ;riktningar är up, down, right left
+                [facing 'up]) ;vart karaktären tittar, riktningar är up, down, right left
     (inherit-field position)
     (inherit move-me)
     (inherit my-pos)
     (define/public (walk direction)
-      (let ((at (my-pos)))
-        (cond ((false? at) (void))
-              ((eq? direction 'up) (move-me (list (lvl-cor at) (- (y-cor at) 1) (x-cor at))))
-              ((eq? direction 'down) (move-me (list (lvl-cor at) (+ (y-cor at) 1) (x-cor at))))
-              ((eq? direction 'left) (move-me (list (lvl-cor at) (y-cor at) (+ (x-cor at) 1))))
-              ((eq? direction 'right) (move-me (list (lvl-cor at) (y-cor at) (- (x-cor at) 1))))
-              (else (void))))
-      (set! facing direction))
+      (set! facing direction)
+      (move-me (inc-pos)))
+    (define/public (inc-pos)
+        (let ((at (my-pos)))
+          (cond ((false? at) (void))
+                ((eq? facing 'up) (list (lvl-cor at) (- (y-cor at) 1) (x-cor at)))
+                ((eq? facing 'down) (list (lvl-cor at) (+ (y-cor at) 1) (x-cor at)))
+                ((eq? facing 'left) (list (lvl-cor at) (y-cor at) (+ (x-cor at) 1)))
+                ((eq? facing 'right) (list (lvl-cor at) (y-cor at) (- (x-cor at) 1)))
+                (else (void)))))
     (define/public (get-description)
       description)
     (define/public (get-hp)

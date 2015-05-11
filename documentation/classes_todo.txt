@@ -1,0 +1,4 @@
+Container class
+Equipment class
+Inventory class
+Stats class
