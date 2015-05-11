@@ -8,13 +8,13 @@ Den har även fördelen att vara helt separat från resten av spelmotorn.
 Därför väljer vi att ge grafiken en egen version som implementeras i steg utifrån vår förmåga.
 
 ** Version 1
-Texturhantering (vad är inläst/inte inläst)
-Texthantering
-Inläsning av akter
+*** TODO Texturhantering (vad är inläst/inte inläst)
+*** TODO Texthantering
+*** TODO Inläsning av akter
 
 ** Version 2
-Rita akt
-
+*** TODO Rita akt
+Krav att grafiken är skalbar efter skärmupplösning
 ** Version 3
 UI
 Objektsystem för UI
@@ -28,20 +28,20 @@ Animationer implementerade.
 
 * Spelmotorn
 ** Version 1
-Spelaren kan röra sig (dvs vi kan hantera grundläggande input)
-Stöd för en akt (dvs inga övergångar)
-Grundläggande objektsystem för spelbara karaktärer
-Grundläggande objektsystem för NPC
-Grundläggande objektsystem för kulisser (interagerbara objekt i världen)
-Grundläggande stöd för dialog, dvs NPCer kan säga en sak.
+*** TODO Spelaren kan röra sig (dvs vi kan hantera grundläggande input)
+*** DONE Stöd för en akt (dvs inga övergångar)
+*** TODO Grundläggande objektsystem för spelbara karaktärer
+*** DONE Grundläggande objektsystem för NPC
+*** TODO Grundläggande objektsystem för kulisser (interagerbara objekt i världen)
+*** TODO Grundläggande stöd för dialog, dvs NPCer kan säga en sak.
 
 ** Version 2
 Fullt stöd för input, dvs all funktionalitet som är implementerad ska kunna användas här efter.
 NPC dialog läses in från fil, dvs ej hårdkodad.
-Grundläggande objektsystem för rekvesita (dvs föremål karaktärerna kan bara på)
+Grundläggande objektsystem för rekvesita (dvs föremål karaktärerna kan bära på)
 Grundläggande objektsystem för fonder (bakgrunder)
-Grundläggande objektsystem för dekor (icke interagerbara objekt)
-System för collision-detection.
+*** DONE Grundläggande objektsystem för dekor (icke interagerbara objekt)
+*** DONE System för collision-detection.
 
 ** Version 3
 NPC dialog implementerad som graf genom lista.
