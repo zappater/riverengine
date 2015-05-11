@@ -15,3 +15,8 @@
   (second pos))
 (define (x-cor pos)
   (third pos))
+(define (valid-pos? position)
+  (and (list? position) 
+       (eq? (length position) 3)
+       (andmap integer? position) 
+       (andmap positive? position)))
