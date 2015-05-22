@@ -59,6 +59,8 @@
               (begin (level-clear-pos! (get-level pos) (cdr pos))
                      (send obj set-pos! #f this))
               (void))))
+    (define/public (get-levels)
+      levels)
     (define/public (get-name)
       name)))
 
