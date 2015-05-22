@@ -8,22 +8,20 @@ Den har även fördelen att vara helt separat från resten av spelmotorn.
 Därför väljer vi att ge grafiken en egen version som implementeras i steg utifrån vår förmåga.
 
 ** Version 1
-*** TODO Texturhantering (vad är inläst/inte inläst)
+*** DONE Texturhantering (vad är inläst/inte inläst)
 *** TODO Texthantering
-*** TODO Inläsning av akter
+*** DONE Inläsning av akter
 
 ** Version 2
-*** TODO Rita akt
+*** DONE Rita akt
 Krav att grafiken är skalbar efter skärmupplösning
 ** Version 3
-UI
-Objektsystem för UI
-
+*** DONE UI
+*** DONE Objektsystem för UI
 ** Version 4
-Scriptspråk för UI
-
+*** TODO Scriptspråk för UI2
 ** Version 5 (optional)
-Animationer implementerade.
+*** TODO Animationer implementerade.
 
 
 * Spelmotorn
@@ -44,15 +42,13 @@ Animationer implementerade.
 *** DONE System för collision-detection.
 
 ** Version 3
-NPC dialog implementerad som graf genom lista.
-Flera akter, dvs övergångar implementeras.
-Scriptspråk för objekt.
-
+*** TODO NPC dialog implementerad som graf genom lista.
+*** TODO Flera akter, dvs övergångar implementeras.
+*** TODO Scriptspråk för objekt.
 ** Version 4
-Scriptspråk för dialog implementerat.
-Combat via dialog (för vi vill inte implementera den).
-
+*** TODO Scriptspråk för dialog implementerat.
+*** TODO Combat via dialog (för vi vill inte implementera den).
 ** Version 5 (optional)
-Combat börjar implementeras.
-Grundläggande objektsystem för förmågor/abilities.
-Enkel grafisk editor för akter.
+*** TODO Combat börjar implementeras.
+*** TODO Grundläggande objektsystem för förmågor/abilities.
+*** TODO Enkel grafisk editor för akter.
