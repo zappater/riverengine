@@ -88,6 +88,9 @@
        [anchor 'bottomright]
   [size (cons 50 25)]
   [texture (read-bitmap "uitset.png")]))
+(define (key-handler key)
+  (void))
+
 ;;(send testpanel5 get-anchor)
 (define test-ui
   (new UI%
@@ -234,11 +237,14 @@
                         [label Game_name]))
 
 
-
-(define MAIN-CANVAS (new (class canvas%
+(define game-canvas%
+  (class canvas%
+    (super-new)
+    (define/override (on-char key)
+      (key-handler key))))
+  
+(define MAIN-CANVAS (new (class game-canvas%
                            (super-new)
-                           
-                           
                            )[parent MAIN-FRAME]
                             [paint-callback paint!]))
 
