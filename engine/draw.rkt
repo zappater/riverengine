@@ -8,6 +8,7 @@
 (require "supportfunctions.rkt")
 (require "globals.rkt")
 (require "UIdefines.rkt")
+(require "key-handler.rkt")
 ;;DEBUG
 (define *scale* 1)
 (define viewsize (cons 10 10))
@@ -44,6 +45,12 @@
                         [texture (read-bitmap "ydot.png")]))
 (send camera-obj move-me (list 2 30 6))
 ;;(display (send camera-obj my-pos))
+(define test-controls (make-control-scheme (list 'up 'down 'left 'right) (list (lambda () (display 'up))
+                                                                               (lambda () (display 'down))
+                                                                               (lambda () (display 'left))
+                                                                               (lambda () (display 'right)))))
+(change-control-scheme test-controls)
+                                                                               
 (define testpanel1
   (new UIpanel%
   [size (cons 50 25)]
@@ -88,8 +95,6 @@
        [anchor 'bottomright]
   [size (cons 50 25)]
   [texture (read-bitmap "uitset.png")]))
-(define (key-handler key)
-  (void))
 
 ;;(send testpanel5 get-anchor)
 (define test-ui
@@ -240,8 +245,10 @@
 (define game-canvas%
   (class canvas%
     (super-new)
-    (define/override (on-char key)
-      (key-handler key))))
+    (init-field
+     [key-handler-l key-handler])
+    (define/override (on-char key-event)
+      (key-handler-l (send key-event get-key-code) *control-scheme*))))
   
 (define MAIN-CANVAS (new (class game-canvas%
                            (super-new)
@@ -254,7 +261,7 @@
 
 (define MAIN-TIMER (new timer% 
                         [notify-callback tick!]
-                        [interval 1000]))
+                        [interval 32]))
 
 
 
