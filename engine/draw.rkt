@@ -11,7 +11,7 @@
 (require "key-handler.rkt")
 ;;DEBUG
 (define *scale* 1)
-(define viewsize (cons 10 10))
+(define viewsize (cons 10 15))
 (define state 0)
 (define game #t)
 (define lvl-1 (make-new-level 40 40))
@@ -43,7 +43,7 @@
 
 (define camera-obj (new granpa%
                         [texture (read-bitmap "ydot.png")]))
-(send camera-obj move-me (list 2 30 6))
+(send camera-obj move-me (list 2 20 15))
 ;;(display (send camera-obj my-pos))
 (define test-controls (make-control-scheme (list 'up 'down 'left 'right) (list (lambda () (display 'up))
                                                                                (lambda () (display 'down))
@@ -103,23 +103,21 @@
 (change-ui test-ui)       
 ;;END DEBUG
 ;; tick!: -> void
-(define (tick!)
-  (set! state (add1 state))
+(define (tick!);;funktionen som uppdaterar skärmen
+  ;;(set! state (add1 state))
   (send MAIN-CANVAS refresh))
 
 
 
-(define (paint! a-canvas dc)
-  (send dc scale *scale* *scale*)
-  (send dc set-background (make-object color% 0 0 0))
-  (send dc clear)
+(define (paint! a-canvas dc) ;; utför all dc calls
+  (send dc scale *scale* *scale*) ;;skalar om bilden, bra till skärmar med hög upplösning
+  (send dc set-background (make-object color% 0 0 0));;Svart bakgrund
+  (send dc clear);;ränsar föregåend bildruta
   
-  (define (paint-act! act)
-    (draw-enteties (send act get-levels) (cons (second (send camera-obj my-pos)) (third (send camera-obj my-pos))))
-    
-    )
+  (define (paint-act! act) ;;funktion för att rita en akt
+    (draw-enteties (send act get-levels) (cons (second (send camera-obj my-pos)) (third (send camera-obj my-pos))))) ;;kallar huvud hjäpfunktion för paint-act! med info 
   
-  (define (draw-level level camera-pos drawpos ypos)
+  (define (draw-level level camera-pos drawpos ypos);;ritar ut en level på skärmen
     (if (null? level)
         (void)
         (if (<= (abs (- (car camera-pos) ypos)) (round (/ (car viewsize) 2)))
@@ -131,7 +129,7 @@
               (draw-level (mcdr level) camera-pos (cons (+ (car drawpos) 1) (cdr drawpos)) (+ ypos 1)))
             (draw-level (mcdr level) camera-pos drawpos (+ ypos  1)))))
   
-  (define (draw-row row cameraxpos drawpos xpos)
+  (define (draw-row row cameraxpos drawpos xpos) ;;ritar ut en rad på skärmen
     (if (null? row)
         (void)
         (cond
@@ -150,7 +148,7 @@
                          )
                        (void))))
              (draw-row (mcdr row) cameraxpos (cons (car drawpos) (+ 1 (cdr drawpos))) (+ xpos  1)))))))
-  (define (draw-enteties structure camera-pos)
+  (define (draw-enteties structure camera-pos) ;;ritar ut hela act strukturen på skärmen
     (if (null? structure)
         (void)
         (begin
@@ -159,7 +157,7 @@
   
   
   
-  (define paint-ui-act!
+  (define paint-ui-act! ;;ritar ut ett ui på skärmen
     (lambda (ui windowsize)      
       (define (Draw-panel-help obj size) ;;ritar ut panel eller grupp med ett ankar som 0,0
         (if (send obj group?)
@@ -175,7 +173,7 @@
                     (void))))))
       (define Draw-panel
         (lambda (obj)
-          ;;Ränka ut ankar positioner
+          ;;Ränka ut ankar positioner från och med här och förbi blocket nedan
           (let ((size (send obj get-size))
                 (offset (send obj get-offset))
                 (anchor (send obj get-anchor)))
@@ -222,27 +220,26 @@
           ;;Slut på ankar postionerna          
       (for-each Draw-panel (send ui get-uipanels))))
   
-  ;;kommit hit     
   (if game
       (begin
-        (paint-act! *current-act*)
+        (paint-act! *current-act*) ;;ritar faktiskt ut nått
         (paint-ui-act! *current-ui* 
                        (cons (* 50 *scale* (cdr viewsize)) (* 50 *scale* (car viewsize))))) ;viewsize bestämmer antal tiles rutan är
       void)
-  (send dc scale (/ 1 *scale*) (/ 1 *scale*)))
+  (send dc scale (/ 1 *scale*) (/ 1 *scale*))) ;;återställer skalan inför nästa cykel
 
 
 
-(define MAIN-FRAME (new (class frame%
+(define MAIN-FRAME (new (class frame% ;;skapar fönstret
                           (super-new)
                           (define/augment (on-close)
                             (custodian-shutdown-all (current-custodian))))
-                        [width (* 50 *scale* (cdr viewsize))]
+                        [width (* 50 *scale* (cdr viewsize))] ;;tar hänsyn till viewsize och skalan
                         [height (* 50 *scale* (car viewsize))]
                         [label Game_name]))
 
 
-(define game-canvas%
+(define game-canvas% ;;möjliggör input från tangentbord
   (class canvas%
     (super-new)
     (init-field
@@ -256,17 +253,17 @@
                             [paint-callback paint!]))
 
 
-(send MAIN-FRAME show #t)
+(send MAIN-FRAME show #t) ;;visa fönstret
 
 
-(define MAIN-TIMER (new timer% 
+(define MAIN-TIMER (new timer%  ;;huvud timer loopar ritandet av skärmen
                         [notify-callback tick!]
                         [interval 32]))
 
 
 
 
-;;Palla länka vid felsökning !!tas bort efter länkning!!
+
 
 
 
