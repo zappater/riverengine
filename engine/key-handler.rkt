@@ -1,13 +1,19 @@
 #lang racket
 (provide (all-defined-out))
 (define (key-handler key control-scheme)
-  (let ((funk (assoc key control-scheme)))
+  (let ((funk (send control-scheme get-keyandfunk key)))
     (if funk
         ((cdr funk))
         (void))))
 
-(define (make-control-scheme keys funks)
-  (if (or (null? keys) (null? funks))
-      '()
-      (cons (cons (car keys) (car funks)) (make-control-scheme (cdr keys) (cdr funks) ))))
+(define control-scheme%
+  (class object%
+    (super-new)
+    (init-field
+    [control-lst '()])
+    (define/public (get-keyandfunk key)
+      (assoc key control-lst))
+    (define/public (add-key key funk)
+      (set! control-lst (cons (cons key funk) control-lst)))))
+    
 

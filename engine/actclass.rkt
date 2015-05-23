@@ -61,6 +61,15 @@
               (void))))
     (define/public (get-levels)
       levels)
+    (define/public (add-texture-obj cor obj)
+      (level-set-object-at-pos! (get-level cor) ;skickar in rätt level
+                                (cdr cor) ;skickar in positionen som två-dimensionell data
+                                obj))
+    (define/public (remove-texture-obj cor)
+      (level-set-object-at-pos! (get-level cor) ;skickar in rätt level
+                                (cdr cor) ;skickar in positionen som två-dimensionell data
+                                '()))
+   
     (define/public (get-name)
       name)))
 

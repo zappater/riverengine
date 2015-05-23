@@ -1,0 +1,1 @@
+(make-new-act-in-temp 10 50 50 "act-name") #|Parameters are  (make-new-act-in-temp number-of-levels lvlysize lvlxsize act-name-str)|# 
