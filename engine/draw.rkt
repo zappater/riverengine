@@ -9,98 +9,8 @@
 (require "globals.rkt")
 (require "UIdefines.rkt")
 (require "key-handler.rkt")
-;;DEBUG
-(define *scale* 1)
-(define viewsize (cons 10 15))
-(define state 0)
-(define game #t)
-(define lvl-1 (make-new-level 40 40))
-(define lvl-2 (make-new-level 40 40))
-(define bluetexture (new granpa%
-                         [texture (read-bitmap
-                                   "Natural grass_001.png")
-                                  ]))
-(define (fill-level lvl obj pos)
-  (if (< (car pos) 41)
-      (begin
-        (fill-level-row lvl obj pos)
-        (fill-level lvl obj (cons (+ (car pos) 1) (cdr pos))))
-      (void)))
-
-(define (fill-level-row level obj pos)
-  (if (< (cdr pos) 41)
-      (begin
-        ;;(display pos)
-        (fill-level-row level obj (cons (car pos) (+ 1 (cdr pos))))
-        (level-set-object-at-pos! level (list (car pos) (cdr pos)) obj))
-      (void)))
-(fill-level lvl-1 bluetexture (cons 1 1))
-(define test-act
-  (new act% 
-       [levels (mlist lvl-1 lvl-2)]
-       [name "test-act"]))
-(transition test-act)
-
-(define camera-obj (new granpa%
-                        [texture (read-bitmap "ydot.png")]))
-(send camera-obj move-me (list 2 20 15))
-;;(display (send camera-obj my-pos))
-(define test-controls (make-control-scheme (list 'up 'down 'left 'right) (list (lambda () (display 'up))
-                                                                               (lambda () (display 'down))
-                                                                               (lambda () (display 'left))
-                                                                               (lambda () (display 'right)))))
-(change-control-scheme test-controls)
-                                                                               
-(define testpanel1
-  (new UIpanel%
-  [size (cons 50 25)]
-  [texture (read-bitmap "uitset.png")]))
-(define testpanel2
-  (new UIpanel%
-       [anchor 'topcenter]
-  [size (cons 50 25)]
-  [texture (read-bitmap "uitset.png")]))
-(define testpanel3
-  (new UIpanel%
-       [anchor 'topright]
-  [size (cons 50 25)]
-  [texture (read-bitmap "uitset.png")]))
-(define testpanel4
-  (new UIpanel%
-       [anchor 'centerleft]
-  [size (cons 50 25)]
-  [texture (read-bitmap "uitset.png")]))
-(define testpanel5
-  (new UIpanel%
-       [anchor 'centercenter]
-  [size (cons 50 25)]
-  [texture (read-bitmap "uitset.png")]))
-(define testpanel6
-  (new UIpanel%
-       [anchor 'centerright]
-  [size (cons 50 25)]
-  [texture (read-bitmap "uitset.png")]))
-(define testpanel7
-  (new UIpanel%
-       [anchor 'bottomleft]
-  [size (cons 50 25)]
-  [texture (read-bitmap "uitset.png")]))
-(define testpanel8
-  (new UIpanel%
-       [anchor 'bottomcenter]
-  [size (cons 50 25)]
-  [texture (read-bitmap "uitset.png")]))
-(define testpanel9
-  (new UIpanel%
-       [anchor 'bottomright]
-  [size (cons 50 25)]
-  [texture (read-bitmap "uitset.png")]))
-
-;;(send testpanel5 get-anchor)
-(define test-ui
-  (new UI%
-       [uipanels (list testpanel1 testpanel4 testpanel5 testpanel2 testpanel6 testpanel3 testpanel8 testpanel9 testpanel7)]))
-(change-ui test-ui)       
+(require "Demo_game.rkt")
+;;DEBUG       
 ;;END DEBUG
 ;; tick!: -> void
 (define (tick!);;funktionen som uppdaterar skärmen
@@ -131,7 +41,7 @@
   
   (define (draw-row row cameraxpos drawpos xpos) ;;ritar ut en rad på skärmen
     (if (null? row)
-        (void)
+        (void) 
         (cond
           ((< xpos (- cameraxpos (round (/ (cdr viewsize) 2))))  (draw-row (mcdr row) cameraxpos drawpos (+ xpos  1)))
           ((> xpos  (+ cameraxpos (round (/ (cdr viewsize) 2)))) (void))
@@ -147,7 +57,7 @@
                          ;;(display drawpos)
                          )
                        (void))))
-             (draw-row (mcdr row) cameraxpos (cons (car drawpos) (+ 1 (cdr drawpos))) (+ xpos  1)))))))
+             (draw-row (mcdr row) cameraxpos (cons (car drawpos) (+ 1 (cdr drawpos))) (+ xpos  1))))))) 
   (define (draw-enteties structure camera-pos) ;;ritar ut hela act strukturen på skärmen
     (if (null? structure)
         (void)
@@ -216,7 +126,7 @@
                (Draw-panel-help obj size)
                (send dc translate (- (+ (- (car windowsize) (car size)) (car offset))) (- (+ (- (cdr windowsize) (cdr size)) (cdr offset)))))
               (else
-               (error obj "has an invaild anchor"))))))
+               (error obj "has an invaild anchor")))))) 
           ;;Slut på ankar postionerna          
       (for-each Draw-panel (send ui get-uipanels))))
   
@@ -245,7 +155,9 @@
     (init-field
      [key-handler-l key-handler])
     (define/override (on-char key-event)
-      (key-handler-l (send key-event get-key-code) *control-scheme*))))
+      (begin
+      ;;(write (send key-event get-key-code))
+      (key-handler-l (send key-event get-key-code) *control-scheme*)))))
   
 (define MAIN-CANVAS (new (class game-canvas%
                            (super-new)

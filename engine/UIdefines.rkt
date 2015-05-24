@@ -10,6 +10,7 @@
       (if (eq? ele (car lst))
           (cdr lst)
           (cons (car lst) (Find-and-remove ele (cdr lst))))))
+
 (define UI%
   (class object%
     (super-new)
@@ -32,10 +33,11 @@
      [offset (cons 0 0)]
      [texture #f]
      [text #f]
+     [text-style #f]
      [button-effect (void)]
      )
     (define/public (group?)
-    #f)
+      #f)
     (define/public (get-anchor)
       anchor)
     (define/public (get-offset)
@@ -46,8 +48,10 @@
       texture)
     (define/public (get-text)
       text)
-    (define/public (set-text! string)
-      (set! text string))))
+    (define/public (set-text! strin)
+      (set! text strin))
+    (define/public (set-texture! new-texture)
+      (set! texture new-texture))))
 
 (define UIpanelgroup%
   (class object%
@@ -70,7 +74,6 @@
       (set! uipanels (Insert panel uipanels pos)))
     (define/public (remove-panel panel)
       (set! uipanels (Find-and-remove panel uipanels)))
-    (define/public (get-panel-lst)
+    (define/public (get-uipanels)
       uipanels)))
 
-    
