@@ -24,8 +24,8 @@
         (cond ((false? at) (void))
               ((eq? facing 'up) (list (lvl-cor at) (- (y-cor at) 1) (x-cor at)))
               ((eq? facing 'down) (list (lvl-cor at) (+ (y-cor at) 1) (x-cor at)))
-              ((eq? facing 'left) (list (lvl-cor at) (y-cor at) (+ (x-cor at) 1)))
-              ((eq? facing 'right) (list (lvl-cor at) (y-cor at) (- (x-cor at) 1)))
+              ((eq? facing 'right) (list (lvl-cor at) (y-cor at) (+ (x-cor at) 1)))
+              ((eq? facing 'left) (list (lvl-cor at) (y-cor at) (- (x-cor at) 1)))
               (else (void)))))
     (define/public (get-description)
       description)
@@ -40,6 +40,7 @@
       (> hp 0))
     (define/override (get-current-texture)
       (cond
+        ((not texture) #f)
         ((eq? facing 'up) (first texture))
         ((eq? facing 'down) (second texture))
         ((eq? facing 'left) (third texture))

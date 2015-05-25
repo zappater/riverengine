@@ -15,8 +15,7 @@
   (class object%
     (super-new)
     (init-field
-     [uipanels '()]
-     )
+     [uipanels '()])
     (define/public (add-uipanel panel [pos 1])
       (set! uipanels (Insert panel uipanels pos)))
     (define/public (remove-panel panel)

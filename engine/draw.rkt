@@ -19,8 +19,9 @@
 
 
 
-(define (paint! a-canvas dc) ;; utför all dc calls
-  (send dc scale *scale* *scale*) ;;skalar om bilden, bra till skärmar med hög upplösning
+(define (paint! a-canvas dc);; utför all dc calls
+  (indraw)
+  (send dc scale *scale* *scale*) ;;skalar om bilden, bra till skärmar med hög upplösning 
   (send dc set-background (make-object color% 0 0 0));;Svart bakgrund
   (send dc clear);;ränsar föregåend bildruta
   

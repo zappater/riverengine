@@ -46,7 +46,7 @@
   (new UIpanel%
        [anchor 'topleft]
        [offset (cons 0 66)]
-       [text "Use moseleft to place and mouseright to remove textures"]
+       [text "Use mouseleft to place and mouseright to remove textures"]
        [text-style defult-font-18]))
 (define help-group
   (new UIpanelgroup%
@@ -126,7 +126,7 @@
 (define game #t)
 (define camera-obj
   (new (class char%
-         (super-new))))
+         (super-new)))) 
 (define viewsize (cons 16 20))
 (define creators-ui
   (new UI%
@@ -156,7 +156,7 @@
 
 
 
-(define (make-new-act-in-temp number-of-levels lvlysize lvlxsize act-name-str)
+(define (make-new-act-in-temp number-of-levels lvlysize lvlxsize act-name-str);;Bygger defintionen av en act med önskat antal levels och storlek i xy planet.
   (define (build-lvl-define-str nlvl lvly lvlx [str1 ""] [str2 " '())"])
     (if (<= nlvl 0)
         (string-append str1 " \n (define *lvl-list* " str2)
@@ -653,7 +653,7 @@
              (let ((obj (mcar (mcar row))))
                (if (null? obj)
                    (void)
-                   (if (send obj get-current-texture)
+                   (if (send obj get-current-texture) 
                        (begin
                          (send dc draw-bitmap (send obj get-current-texture) (* 50 (cdr drawpos)) (* 50 (car drawpos)))
                          ;;(display drawpos)
