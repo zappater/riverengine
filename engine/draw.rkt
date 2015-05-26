@@ -93,7 +93,10 @@
             ;;(display (+ (- (/ (car windowsize) 2) (round (/ (car size) 2))) (car offset)))
             ;;(display "\n")
             (cond
-              ((eq? anchor 'topleft) (Draw-panel-help obj size))
+              ((eq? anchor 'topleft)
+               (send dc translate (car offset) (cdr offset))
+               (Draw-panel-help obj size)
+               (send dc translate (- (car offset)) (- (cdr offset))))
               ((eq? anchor 'topcenter)
                (send dc translate (+ (- (/ (car windowsize) 2) (round (/ (car size) 2))) (car offset)) (cdr offset))
                (Draw-panel-help obj size)

@@ -28,7 +28,7 @@
     (define/public (interact) 
       ;alla objekt kan interageras med men som standard händer inget
       ;använd override för att ge olika classer olika interacts
-      (void))
+      void)
     (define/public (get-current-texture)
       texture) ;;override om en class använder mer avancerad textur hantering
     

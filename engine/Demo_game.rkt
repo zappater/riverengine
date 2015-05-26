@@ -14,32 +14,10 @@
 (require "texture_defs.rkt")
 (require "Island_act.rkt")
 (require "PCclass.rkt")
+(require "dialog_definitions.rkt")
 (provide (all-defined-out))
 ;;object defs
-(define dialog-row1
-  (new UIpanel%
-       [offset (cons 4 4)]))
-(define dialog-row2
-  (new UIpanel%
-       [offset (cons 18 4)]))
-(define dialog-row3
-  (new UIpanel%
-       [offset (cons 32 4)]))
-(define dialog-row4
-  (new UIpanel%
-       [offset (cons 46 4)]))
-(define dialog-row5
-  (new UIpanel%
-       [offset (cons 70 4)]))
-(define dialog-row6
-  (new UIpanel%
-       [offset (cons 84 4)]))
 
-(define dialog-bar
-  (new UIpanelgroup%
-       [uipanels (list dialog-row1 dialog-row2 dialog-row3 dialog-row4 dialog-row5 dialog-row6)]
-       [anchor 'bottomleft]
-       [size (cons 400 100)]))
 
 (define mypos-panel
   (new UIpanel%
@@ -63,8 +41,21 @@
 (send ingame-controls add-key 'right (lambda () (send mainchar walk 'right)))
 (send ingame-controls add-key 'left (lambda () (send mainchar walk 'left)))
 (send ingame-controls add-key 'down (lambda () (send mainchar walk 'down)))
-(send ingame-controls add-key #\space (lambda () (begin (send dialog-row3 set-text! (send mainchar interact))
-                                                        (send game-ui add-uipanel dialog-bar))))
+(send ingame-controls add-key #\space (lambda () ((send mainchar interact))))
+(send ingame-controls add-key #\1 (lambda () (send dialog-handler choose-option 1)))
+(send ingame-controls add-key #\2 (lambda () (send dialog-handler choose-option 2)))
+(send ingame-controls add-key #\3 (lambda () (send dialog-handler choose-option 3)))
+(send ingame-controls add-key #\4 (lambda () (send dialog-handler choose-option 4)))
+(define knightNPCdialog-node-1
+  (new dialog-node%
+       [text "Hi, I'm an NPC"]
+       [option "1) Goodbye"]
+       [actions (list 'end)]))
+(define knightNPCdialog
+  (new my-dialog%))
+(send knightNPCdialog add-node knightNPCdialog-node-1 (list 1))
+       
+       
 (change-control-scheme ingame-controls)
 (define mainchar 
   (new PC%
@@ -80,7 +71,17 @@
                       (read-bitmap "50x50_Knight (2).png")
                       (read-bitmap "50x50_Knight (4).png"))]
        [facing 'left]
-       [use "hej, jag är en NPC"]))
+       [use ((lambda (local-bol)
+               (lambda () (if local-bol
+                              (begin
+                                (send dialog-handler dialog-active #t knightNPCdialog)
+                                (send knightNPCdialog initialize-dialog)
+                                (send dialog-handler display-dialog knightNPCdialog)
+                                (set! local-bol #f))
+                              (begin
+                                (send dialog-handler dialog-active #f)
+                                (set! local-bol #t)))))
+             #t)]))
 (define camera-obj mainchar) ;;bör ändras till dedkerad kamera hanterare!
 (send mainchar move-me '(2 15 9))
 (send knightNPC move-me '(2 15 10))
