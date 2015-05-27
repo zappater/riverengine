@@ -40,3 +40,5 @@ några få objekt som fungerar exakt lika.
 (define (change-control-scheme new-ctlse) ;enkel implementering för tillfället
   (set! *control-scheme* new-ctlse)) ;så vi kan testa koden
 
+(define (change-PC new-PC) ;enkel implementering för tillfället
+  (set! *current-PC* new-PC)) ;så vi kan testa koden
