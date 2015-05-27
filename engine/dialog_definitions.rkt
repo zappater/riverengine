@@ -3,12 +3,17 @@
 (require "UIdefines.rkt")
 (require racket/gui/base)
 (provide (all-defined-out))
-(define local-nth (lambda (pos lst)
-              (if (null? (cdr lst))
-                  (car lst)
-                  (if (<= pos 1)
-                      (car lst)
-                      (local-nth (- pos 1) (cdr lst))))))
+
+(define local-nth 
+  ;fungerar annorlunda, tillskillnad från vår andra nth
+  ;i supportfunctions skickar den här alltid tillbaka något
+  (lambda (pos lst)
+    (if (null? (cdr lst))
+        (car lst)
+        (if (<= pos 1)
+            (car lst)
+            (local-nth (- pos 1) (cdr lst))))))
+;här definerar vi vårt UI för dialog
 (define dialog-row1
   (new UIpanel%
        [offset (cons 4 4)]))
@@ -27,11 +32,11 @@
 (define dialog-row6
   (new UIpanel%
        [offset (cons 4 84)]))
-
+;här skapar vi bakgrunden till dialog UI
 (define dialog-background
   (new UIpanel%
        [texture (read-bitmap "dialog_background.png")]))
-
+;detta gör allt ovan till en enda UI grupp
 (define dialog-bar
   (new UIpanelgroup%
        [uipanels (list dialog-background dialog-row1 dialog-row2 dialog-row3 dialog-row4 dialog-row5 dialog-row6)]
@@ -42,7 +47,7 @@
   (class object%
     (super-new)
     (init-field
-    [current-dialog #f])
+     [current-dialog #f])
     (define/public (display-dialog dialog)
       (let ((text (send dialog get-current-text))
             (options (send dialog get-current-options)))
@@ -82,6 +87,7 @@
 
 
 (define my-dialog%
+  ;skulle heta dialog% men finns redan som inbyggd funktion
   (class object%
     (super-new)
     (init-field
@@ -95,7 +101,7 @@
       (if current-node
           (let ((action (send current-node action num))
                 (next-node-num (local-nth num current-leaf-lst)))
-            (if (eq? action 'end)
+            (if (eq? action 'end) ;speciell symbol som motsvarar EOF för dialoger
                 (begin
                   (send dialog-handler dialog-active #f)
                   (set! active #f)

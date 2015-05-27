@@ -49,7 +49,7 @@
 (define knightNPCdialog-node-1
   (new dialog-node%
        [text "Hi, I'm an NPC"]
-       [option "1) Goodbye"]
+       [option "1) Teleport 2) Goodbye"]
        [actions (list 'end)]))
 (define knightNPCdialog
   (new my-dialog%))
@@ -82,7 +82,7 @@
                                 (send dialog-handler dialog-active #f)
                                 (set! local-bol #t)))))
              #t)]))
-(define camera-obj mainchar) ;;bör ändras till dedkerad kamera hanterare!
+(define camera-obj mainchar) ;;bör ändras till dedikerad kamera hanterare!
 (send mainchar move-me '(2 15 9))
 (send knightNPC move-me '(2 15 10))
 ;;draw setup defines

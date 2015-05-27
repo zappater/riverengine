@@ -6,7 +6,8 @@
 (define *current-ui* #f)
 (define *current-PC* #f)
 
-#| Nedan är menat att ersätta all annan kod i denna fil.
+#|
+Nedan är menat att ersätta all annan kod i denna fil.
 På det här sättet går vi från några identiska globaler med identiska hjälpfunktioner till
 några få objekt som fungerar exakt lika.
 (define in-use%
