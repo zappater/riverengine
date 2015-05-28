@@ -7,8 +7,7 @@
 (define texture%
   (class granpa%
      (super-new)
-    (init-field
-     )     
+    (init-field)    
     (define/override (my-pos)
       #f)
     (define/override (set-pos! new-pos obj)

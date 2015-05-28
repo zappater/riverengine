@@ -1,5 +1,6 @@
 #lang racket
 (require racket/file)
+
 (define (eval-text-file path)
         (eval
          (read

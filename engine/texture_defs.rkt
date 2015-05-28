@@ -2,8 +2,8 @@
 (require racket/gui/base)
 (require "textureclass.rkt")
 (provide (all-defined-out))
-;; New textures 
-;; New textures 
+
+;new textures 
 (define 50x50_stratagus_tileset384 (new texture% 
  [texture (read-bitmap "50x50_stratagus_tileset (384).png")] 
  [name "50x50_stratagus_tileset384"])) 

@@ -4,16 +4,19 @@
 (require racket/gui/base)
 (provide (all-defined-out))
 
-(define local-nth 
-  ;fungerar annorlunda, tillskillnad från vår andra nth
-  ;i supportfunctions skickar den här alltid tillbaka något
+;should be moved to supportfunctions.rkt
+(define local-nth
+  ;unlike the nth in supportfunctions.rkt this function always returns something
+  ;even if the position is greater than the length of the list
+  ;in this case it returns the last element in the list
   (lambda (pos lst)
     (if (null? (cdr lst))
         (car lst)
         (if (<= pos 1)
             (car lst)
             (local-nth (- pos 1) (cdr lst))))))
-;här definerar vi vårt UI för dialog
+
+;defines UI for dialogues
 (define dialog-row1
   (new UIpanel%
        [offset (cons 4 4)]))
@@ -32,11 +35,12 @@
 (define dialog-row6
   (new UIpanel%
        [offset (cons 4 84)]))
-;här skapar vi bakgrunden till dialog UI
+;adds a background to the dialogue UI
 (define dialog-background
   (new UIpanel%
        [texture (read-bitmap "dialog_background.png")]))
-;detta gör allt ovan till en enda UI grupp
+;finally everything is combined into one UIpanelgroup%
+;which can then be used in the game for outputting character dialogue (or other kinds of text)
 (define dialog-bar
   (new UIpanelgroup%
        [uipanels (list dialog-background dialog-row1 dialog-row2 dialog-row3 dialog-row4 dialog-row5 dialog-row6)]
@@ -46,8 +50,7 @@
 (define dialog-handle% 
   (class object%
     (super-new)
-    (init-field
-     [current-dialog #f])
+    (init-field [current-dialog #f])
     (define/public (display-dialog dialog)
       (let ((text (send dialog get-current-text))
             (options (send dialog get-current-options)))
@@ -83,25 +86,20 @@
           (send current-dialog choose-option num)
           (void)))))
 (define dialog-handler (new dialog-handle%))
-
-
-
 (define my-dialog%
-  ;skulle heta dialog% men finns redan som inbyggd funktion
   (class object%
     (super-new)
-    (init-field
-     [node-lst '()]
-     [current-node #f]
-     [current-leaf-lst '()]
-     [active #f])
+    (init-field [node-lst '()]
+                [current-node #f]
+                [current-leaf-lst '()]
+                [active #f])
     (define/public (add-node node leafs-lst)
       (set! node-lst (cons (list (+ 1 (length node-lst)) node leafs-lst) node-lst)))
     (define/public (choose-option num)
       (if current-node
           (let ((action (send current-node action num))
                 (next-node-num (local-nth num current-leaf-lst)))
-            (if (eq? action 'end) ;speciell symbol som motsvarar EOF för dialoger
+            (if (eq? action 'end) ;'end is the equivalent to EOF for dialogues
                 (begin
                   (send dialog-handler dialog-active #f)
                   (set! active #f)
@@ -121,16 +119,12 @@
       (send current-node get-text))
     (define/public (get-current-options)
       (send current-node get-option-text))))
-
-
-
 (define dialog-node%
   (class object%
     (super-new)
-    (init-field
-     [text ""]
-     [option ""]
-     [actions (list (void))])
+    (init-field [text ""]
+                [option ""]
+                [actions (list (void))])
     (define/public (action num)
       (local-nth num actions))
     (define/public (get-text) text)
