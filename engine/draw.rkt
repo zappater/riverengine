@@ -5,6 +5,7 @@
 (require "granpaclass.rkt")
 (require "leveldatastructure.rkt")
 (require "supportfunctions.rkt")
+(require "teleportclass.rkt")
 (require "globals.rkt")
 (require "UIdefines.rkt")
 (require "key-handler.rkt")

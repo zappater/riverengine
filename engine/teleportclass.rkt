@@ -7,6 +7,7 @@
 (define teleport%
   ;a object used for teleporting characters within an act or between acts
   (class granpa%
+    (super-new)
     (init-field [target-act #f]
                 [target-pos #f])
     (inherit my-pos)

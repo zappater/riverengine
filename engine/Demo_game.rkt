@@ -5,6 +5,7 @@
 (require "granpaclass.rkt")
 (require "leveldatastructure.rkt")
 (require "supportfunctions.rkt")
+(require "teleportclass.rkt")
 (require "globals.rkt")
 (require "UIdefines.rkt")
 (require "key-handler.rkt")
@@ -16,9 +17,8 @@
 (require "PCclass.rkt")
 (require "dialog_definitions.rkt")
 (provide (all-defined-out))
-;;object defs
 
-
+;object defs
 (define mypos-panel
   (new UIpanel%
        [size (cons 60 20)]
@@ -54,8 +54,12 @@
 (define knightNPCdialog
   (new my-dialog%))
 (send knightNPCdialog add-node knightNPCdialog-node-1 (list 1))
-       
-       
+(define teleport1
+  (new teleport%
+       [target-pos '(2 20 32)]))
+(define teleport2
+  (new teleport%
+       [target-pos '(2 13 9)]))
 (change-control-scheme ingame-controls)
 (define mainchar 
   (new PC%
@@ -82,9 +86,13 @@
                                 (send dialog-handler dialog-active #f)
                                 (set! local-bol #t)))))
              #t)]))
-(define camera-obj mainchar) ;;bör ändras till dedikerad kamera hanterare!
+(define camera-obj mainchar) ;bör ändras till dedikerad kamera hanterare!
+;places objects in the world
+(change-PC mainchar)
 (send mainchar move-me '(2 15 9))
 (send knightNPC move-me '(2 15 10))
+(send teleport1 move-me '(2 13 8))
+(send teleport2 move-me '(2 20 33))
 ;;draw setup defines
 (define *scale* 1)
 (define viewsize (cons 10 14))
