@@ -114,9 +114,10 @@
               (set! current-layer (- current-layer 1)))
           (send current-level-panel set-text! (number->string current-layer)))))))
 (define texture-handler (new texture-handle%))                   
-(define defulttexture (new texture%
-                           [texture (read-bitmap "testtexture1.png")]
-                           [name "defulttexture"]))
+(define defulttexture 
+  (new texture%
+       [texture (read-bitmap "testtexture1.png")]
+       [name "defulttexture"]))
 (send texture-handler add-texture defulttexture)
 (define *scale* 1)
 (define game #t)
@@ -640,9 +641,8 @@
                    (void)
                    (if (send obj get-current-texture) 
                        (begin
-                         (send dc draw-bitmap (send obj get-current-texture) (* 50 (cdr drawpos)) (* 50 (car drawpos)))
-                         ;(display drawpos)
-                         )
+                         ;(display drawpos) ;debugging tool
+                         (send dc draw-bitmap (send obj get-current-texture) (* 50 (cdr drawpos)) (* 50 (car drawpos))))
                        (void))))
              (draw-row (mcdr row) cameraxpos (cons (car drawpos) (+ 1 (cdr drawpos))) (+ xpos  1)))))))
   (define (draw-enteties structure camera-pos)
@@ -667,54 +667,52 @@
                     (void))))))
       (define Draw-panel
         (lambda (obj)
-          ;;Ränka ut ankar positioner
+          ;Ränka ut ankar positioner
           (let ((size (send obj get-size))
                 (offset (send obj get-offset))
                 (anchor (send obj get-anchor)))
-            ;;(display  offset)
-            ;;(display "    ")
-            ;;(display (+ (- (/ (car windowsize) 2) (round (/ (car size) 2))) (car offset)))
-            ;;(display "\n")
-            (cond
-              ((eq? anchor 'topleft)
-               (send dc translate (car offset) (cdr offset))
-               (Draw-panel-help obj size)
-               (send dc translate (- (car offset)) (- (cdr offset))))
-              ((eq? anchor 'topcenter)
-               (send dc translate (+ (- (/ (car windowsize) 2) (round (/ (car size) 2))) (car offset)) (cdr offset))
-               (Draw-panel-help obj size)
-               (send dc translate (- (+ (- (/ (car windowsize) 2) (round (/ (car size) 2))) (car offset))) (- (cdr offset))))
-              ((eq? anchor 'topright) 
-               (send dc translate (+ (- (car windowsize) (car size)) (car offset)) (cdr offset))
-               (Draw-panel-help obj size)
-               (send dc translate (- (+ (- (car windowsize) (car size)) (car offset))) (- (cdr offset))))
-              ((eq? anchor 'centerleft)
-               (send dc translate (car offset) (+ (- (/ (cdr windowsize) 2) (round (/ (cdr size) 2))) (cdr offset)))
-               (Draw-panel-help obj size)
-               (send dc translate (- (car offset)) (- (+ (- (/ (cdr windowsize) 2) (round (/ (cdr size) 2))) (cdr offset)))))
-              ((eq? anchor 'centercenter)
-               (send dc translate (+ (- (/ (car windowsize) 2) (round (/ (car size) 2))) (car offset))  (+ (- (/ (cdr windowsize) 2) (round (/ (cdr size) 2))) (cdr offset)))
-               (Draw-panel-help obj size)
-               (send dc translate (- (+ (- (/ (car windowsize) 2) (round (/ (car size) 2))) (car offset)))  (- (+ (- (/ (cdr windowsize) 2) (round (/ (cdr size) 2))) (cdr offset)))))
-              ((eq? anchor 'centerright)
-               (send dc translate (+ (- (car windowsize) (car size)) (car offset)) (+ (- (/ (cdr windowsize) 2) (round (/ (cdr size) 2))) (cdr offset)))
-               (Draw-panel-help obj size)
-               (send dc translate (- (+ (- (car windowsize) (car size)) (car offset))) (- (+ (- (/ (cdr windowsize) 2) (round (/ (cdr size) 2))) (cdr offset)))))
-              ((eq? anchor 'bottomleft)
-               (send dc translate (car offset) (+ (- (cdr windowsize) (cdr size)) (cdr offset)))
-               (Draw-panel-help obj size)
-               (send dc translate (- (car offset)) (- (+ (- (cdr windowsize) (cdr size)) (cdr offset)))))
-              ((eq? anchor 'bottomcenter) 
-               (send dc translate (+ (- (/ (car windowsize) 2) (round (/ (car size) 2))) (car offset)) (+ (- (cdr windowsize) (cdr size)) (cdr offset)))
-               (Draw-panel-help obj size)
-               (send dc translate (- (+ (- (/ (car windowsize) 2) (round (/ (car size) 2))) (car offset))) (- (+ (- (cdr windowsize) (cdr size)) (cdr offset)))))
-              ((eq? anchor 'bottomright)
-               (send dc translate (+ (- (car windowsize) (car size)) (car offset)) (+ (- (cdr windowsize) (cdr size)) (cdr offset)))
-               (Draw-panel-help obj size)
-               (send dc translate (- (+ (- (car windowsize) (car size)) (car offset))) (- (+ (- (cdr windowsize) (cdr size)) (cdr offset)))))
-              (else
-               (error obj "has an invaild anchor"))))))
-      ;;Slut på ankar postionerna          
+            ;(display  offset)
+            ;(display "    ")
+            ;(display (+ (- (/ (car windowsize) 2) (round (/ (car size) 2))) (car offset)))
+            ;(display "\n")
+            (cond ((eq? anchor 'topleft)
+                   (send dc translate (car offset) (cdr offset))
+                   (Draw-panel-help obj size)
+                   (send dc translate (- (car offset)) (- (cdr offset))))
+                  ((eq? anchor 'topcenter)
+                   (send dc translate (+ (- (/ (car windowsize) 2) (round (/ (car size) 2))) (car offset)) (cdr offset))
+                   (Draw-panel-help obj size)
+                   (send dc translate (- (+ (- (/ (car windowsize) 2) (round (/ (car size) 2))) (car offset))) (- (cdr offset))))
+                  ((eq? anchor 'topright) 
+                   (send dc translate (+ (- (car windowsize) (car size)) (car offset)) (cdr offset))
+                   (Draw-panel-help obj size)
+                   (send dc translate (- (+ (- (car windowsize) (car size)) (car offset))) (- (cdr offset))))
+                  ((eq? anchor 'centerleft)
+                   (send dc translate (car offset) (+ (- (/ (cdr windowsize) 2) (round (/ (cdr size) 2))) (cdr offset)))
+                   (Draw-panel-help obj size)
+                   (send dc translate (- (car offset)) (- (+ (- (/ (cdr windowsize) 2) (round (/ (cdr size) 2))) (cdr offset)))))
+                  ((eq? anchor 'centercenter)
+                   (send dc translate (+ (- (/ (car windowsize) 2) (round (/ (car size) 2))) (car offset))  (+ (- (/ (cdr windowsize) 2) (round (/ (cdr size) 2))) (cdr offset)))
+                   (Draw-panel-help obj size)
+                   (send dc translate (- (+ (- (/ (car windowsize) 2) (round (/ (car size) 2))) (car offset)))  (- (+ (- (/ (cdr windowsize) 2) (round (/ (cdr size) 2))) (cdr offset)))))
+                  ((eq? anchor 'centerright)
+                   (send dc translate (+ (- (car windowsize) (car size)) (car offset)) (+ (- (/ (cdr windowsize) 2) (round (/ (cdr size) 2))) (cdr offset)))
+                   (Draw-panel-help obj size)
+                   (send dc translate (- (+ (- (car windowsize) (car size)) (car offset))) (- (+ (- (/ (cdr windowsize) 2) (round (/ (cdr size) 2))) (cdr offset)))))
+                  ((eq? anchor 'bottomleft)
+                   (send dc translate (car offset) (+ (- (cdr windowsize) (cdr size)) (cdr offset)))
+                   (Draw-panel-help obj size)
+                   (send dc translate (- (car offset)) (- (+ (- (cdr windowsize) (cdr size)) (cdr offset)))))
+                  ((eq? anchor 'bottomcenter) 
+                   (send dc translate (+ (- (/ (car windowsize) 2) (round (/ (car size) 2))) (car offset)) (+ (- (cdr windowsize) (cdr size)) (cdr offset)))
+                   (Draw-panel-help obj size)
+                   (send dc translate (- (+ (- (/ (car windowsize) 2) (round (/ (car size) 2))) (car offset))) (- (+ (- (cdr windowsize) (cdr size)) (cdr offset)))))
+                  ((eq? anchor 'bottomright)
+                   (send dc translate (+ (- (car windowsize) (car size)) (car offset)) (+ (- (cdr windowsize) (cdr size)) (cdr offset)))
+                   (Draw-panel-help obj size)
+                   (send dc translate (- (+ (- (car windowsize) (car size)) (car offset))) (- (+ (- (cdr windowsize) (cdr size)) (cdr offset)))))
+                  (else (error obj "has an invaild anchor"))))))
+      ;Slut på ankar postionerna          
       (for-each Draw-panel (send ui get-uipanels))))   
   (if game
       (begin
@@ -724,30 +722,31 @@
                              (* 50 *scale* (car viewsize))))) ;viewsize bestämmer antal tiles rutan är
       void)
   (send dc scale (/ 1 *scale*) (/ 1 *scale*)))
-(define MAIN-FRAME (new (class frame%
-                          (super-new)
-                          (define/augment (on-close)
-                            (custodian-shutdown-all (current-custodian))))
-                        [width (* 50 *scale* (cdr viewsize))]
-                        [height (* 50 *scale* (car viewsize))]
-                        [label Game_name]))
+(define MAIN-FRAME 
+  (new (class frame%
+         (super-new)
+         (define/augment (on-close)
+           (custodian-shutdown-all (current-custodian))))
+       [width (* 50 *scale* (cdr viewsize))]
+       [height (* 50 *scale* (car viewsize))]
+       [label Game_name]))
 (define game-canvas%
   (class canvas%
     (super-new)
-    (init-field
-     [key-handler-l key-handler]
-     )
+    (init-field [key-handler-l key-handler])
     (define/override (on-char key-event)
       (begin
-        ;;(write (send key-event get-key-code))
+        ;(write (send key-event get-key-code))
         (key-handler-l (send key-event get-key-code) *control-scheme*)))
     (define/override (on-event mouse-event)
       (mouse-handler mouse-event))))
-(define MAIN-CANVAS (new (class game-canvas%
-                           (super-new)
-                           )[parent MAIN-FRAME]
-                            [paint-callback paint!]))
+(define MAIN-CANVAS 
+  (new (class game-canvas%
+         (super-new))
+       [parent MAIN-FRAME]
+       [paint-callback paint!]))
 (send MAIN-FRAME show #t)
-(define MAIN-TIMER (new timer% 
-                        [notify-callback tick!]
-                        [interval 16]))
+(define MAIN-TIMER 
+  (new timer% 
+       [notify-callback tick!]
+       [interval 16]))
