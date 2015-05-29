@@ -16,6 +16,17 @@
               (if (<= pos 1)
                   (mcar lst)
                   (mnth (- pos 1) (mcdr lst)))))
+(define nth-or-last
+  ;unlike the nth in supportfunctions.rkt this function always returns something
+  ;even if the position is greater than the length of the list
+  ;in this case it returns the last element in the list
+  (lambda (pos lst)
+    (if (null? (cdr lst))
+        (car lst)
+        (if (<= pos 1)
+            (car lst)
+            (nth-or-last (- pos 1) (cdr lst))))))
+
 #|
 A position is defined as a coordinate in 3 dimensions implemented as a list
 consisting only of positive integers (thus position (1,5 2,3 3,1) is invalid but (1 2 3) is valid.

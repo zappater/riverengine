@@ -1,20 +1,9 @@
 #lang racket
 (require "globals.rkt")
 (require "UIdefines.rkt")
+(require "supportfunctions.rkt")
 (require racket/gui/base)
 (provide (all-defined-out))
-
-;should be moved to supportfunctions.rkt
-(define local-nth
-  ;unlike the nth in supportfunctions.rkt this function always returns something
-  ;even if the position is greater than the length of the list
-  ;in this case it returns the last element in the list
-  (lambda (pos lst)
-    (if (null? (cdr lst))
-        (car lst)
-        (if (<= pos 1)
-            (car lst)
-            (local-nth (- pos 1) (cdr lst))))))
 
 ;defines UI for dialogues
 (define dialog-row1
@@ -46,15 +35,22 @@
        [uipanels (list dialog-background dialog-row1 dialog-row2 dialog-row3 dialog-row4 dialog-row5 dialog-row6)]
        [anchor 'bottomleft]
        [size (cons 400 110)]))
-
-(define dialog-handle% 
+(define dialog-handle%
+  ;object for formating dialogue and showing it on the screen
   (class object%
     (super-new)
     (init-field [current-dialog #f])
     (define/public (display-dialog dialog)
+      ;takes a string as argument
+      ;then outputs it to the UI as dialogue
       (let ((text (send dialog get-current-text))
             (options (send dialog get-current-options)))
-        (begin
+        (begin 
+          ;this splits up dialog into different rows depending on how long it is
+          ;one row can take 20 characters and
+          ;if the dialog is longer than 100 characters it is too long for the UI
+          ;as we have choosen to only have 5 rows + 1 row for dialogue options
+          ;this will be fixed when a "next part of the dialogue" function is implemented
           (if (< (string-length text) 21)
               (send dialog-row1 set-text! text)
               (begin
@@ -76,12 +72,16 @@
                                       (error "dialog text to long"))))))))))
           (send dialog-row6 set-text! options))))
     (define/public (dialog-active bol [dialog #f])
+      ;makes the dialogue UI only display on the screen if a dialogue is active
+      ;takes as argument a boolean (#f or #t)
       (if bol
           (begin
             (send *current-ui* add-uipanel dialog-bar)
             (set! current-dialog dialog))
           (send *current-ui* remove-panel dialog-bar)))
     (define/public (choose-option num)
+      ;allows the user to make a choice in the dialogue, for example ending the conversation
+      ;it takes a number between 1 and 4 (might be developed further)
       (if current-dialog
           (send current-dialog choose-option num)
           (void)))))
@@ -98,7 +98,7 @@
     (define/public (choose-option num)
       (if current-node
           (let ((action (send current-node action num))
-                (next-node-num (local-nth num current-leaf-lst)))
+                (next-node-num (nth-or-last num current-leaf-lst)))
             (if (eq? action 'end) ;'end is the equivalent to EOF for dialogues
                 (begin
                   (send dialog-handler dialog-active #f)
@@ -126,7 +126,7 @@
                 [option ""]
                 [actions (list (void))])
     (define/public (action num)
-      (local-nth num actions))
+      (nth-or-last num actions))
     (define/public (get-text) text)
     (define/public (get-option-text) option)))
 
