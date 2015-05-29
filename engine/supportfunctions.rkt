@@ -26,6 +26,27 @@
         (if (<= pos 1)
             (car lst)
             (nth-or-last (- pos 1) (cdr lst))))))
+(define (insert ele lst pos)
+  ;why do we have this function? certainly this must already exist in racket? /Henrik
+  
+  ;inserts an atom into a list at position pos
+  ;takes as arguments ele which is an element to be inserted into a list
+  ;lst is a list which to insert an element into
+  ;pos is the position to insert the element into the list
+  (if (<= pos 1)
+      (cons ele lst)
+      (cons (car lst) (insert ele (cdr lst) (- pos 1)))))
+(define (find-and-remove ele lst)
+  ;same here, doesn't this already exist in racket? /Henrik
+  
+  ;removes an atom from a list
+  ;ele is the atom to be removed
+  ;lst is the list from which it should be removed
+  (if (null? lst)
+      '()
+      (if (eq? ele (car lst))
+          (cdr lst)
+          (cons (car lst) (find-and-remove ele (cdr lst))))))
 
 #|
 A position is defined as a coordinate in 3 dimensions implemented as a list
