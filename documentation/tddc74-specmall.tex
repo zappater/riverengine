@@ -120,20 +120,31 @@ For the player: A lot like Final Fantasy, look at the picture and use your imagi
 %\textit{Den här delen skriver ni inför slutinlämningen}\\
 
 The final product includes two parts.
-1. A demo game, this is started by running draw.rkt
-2. A map editor, this is started by running act-editor.rkt
+A demo game, this is started by running draw.rkt and a map editor, this is started by running act-editor.rkt.
 In addition to this it includes a lot of small subsystems which is explained in the comments to the code.
 
 The demo game is played by running draw.rkt. The character is then moved using the arrow keys and the world is interacted with using the spacebar.
 If entering a dialogue with a character the number keys 1, 2, 3 and 4 is used for choosing dialogue options.
-The current demo game includes a walkable world and one NPC which can be interacted with by standing next to it and looking at it then pressing the spacebar.
+The current demo game includes a walkable world, one NPC which can be interacted with by standing next to it and looking at it then pressing the spacebar and two teleporters (without textures so they are invisible) which can also be interacted with using the spacebar.
+
+\includegraphics[scale=0.25]{Start}
+\includegraphics[scale=0.25]{dialogue_with_npc}
+
+The first image shows the start of the game. The second shows conversation with an NPC. And the last image shows where a second teleporter is hidden (you arrive there if you use the first teleporter).
+
+\includegraphics[scale=0.25]{teleporter2}
+
 
 The map editor is started by running act-editor.rkt. Press h for help and h again to return to the map editor.
 Simply put you place tiles using the left mouse button and remove them using the right mouse button.
+You scroll through textures using a and q, you change level to put the texture on with s and w.
 This will result in a .txt file containing the map. This is then copypasted into a correctly formated .rkt file (make sure to specify language used at the top of the document!). To get a fully running game additional code for objects, required rkt files and control scheme need to be added.
 This is a bit too much to explain here, this is after all a game engine not a game maker!
 It is made to be a framework for programming your own games within not as a tool for generating complete games without any programming.
-We suggest looking at Demo_game.rkt for an example.
+We suggest looking at Demo\_game.rkt for an example.
+
+
+\includegraphics[scale=0.25]{act-editor-example}
 
 %När ni har implementerat ett spel så krävs det en manual som förklarar hur spelet fungerar. Ni ska beskriva spelets olika delar och hur interaktionen fungerar (om mus används, tangentbord, vilka knappar som är aktuella, etc). Inkludera skärmdumpar, som visar hur spelet ser ut. Det ska åtminstone finnas en icke-modifierad bild av spelet. Ett tips i övrigt kan vara att ha en extra bild, ringa in och markera intressanta områden med siffror/färger och beskriva dessa i en prydlig tabell.
 %Viktigt: Skriv hur man startar spelet! Vilken fil ska man ladda in och vilken procedur startar man spelet med (om någon sådan)?
@@ -190,13 +201,14 @@ While it is a 2D game engine, the world is built in three dimensions.
 A character interacts on a 2D surface called a level, it can only interact with things on its own level.
 A level is a mutable datastructure built up as a matrix with each cell containing one object and the coordinates of the cell, if the cell is occupied. An empty cell contains an empty list '() and the coordinates of the cell. 
 
+
 These levels are then layered on top of each other into a three dimensional datastructure. This is done by placing them into a list (immutable). It is immutable as once a complete world has been built the number of levels should never change while the content in each level may change.
 This layering of levels is done in a datastructure called an act, it is essentially a map of the game but as map has other uses in programming I will from now on only use the term act. A map is implemented as an object and functions essentially as the game server. It controls where everything is, it decides where everything is and adds, moves and removes everything from the game world.
+
 
 A cell can only be occupied by one object at a time. As such this has the interesting implicating that collision detection is automatically implemented. If you want to prevent a character from being able to walk somewhere just place an object in that cell. This is also why the world is constructed as a three dimensional world. If you want to have grass that the character can walk on you need to put the grass on a level lower than that which the character is on. This also allows bridges to be built by for example making a world with four levels. On level one you put a bit of ground, on level two nothing and on level three you put the bridge and on level four nothing.
 Now the character will be able to walk under the bridge when on level two and on top of the bridge when on level four. Moving the character between levels is easiest done with the already implemented teleport object, which when used tells the act to move the character to a prespecified place.
 I hope this illustrates why the world is constructed as it is.
-
 
 
 %Här ska ni förklara hur era datastrukturer och algoritmer fungerar. Det bästa sättet att tänka är lite grann ur någon annan grupps perspektiv. Vad skulle någon annan behöva veta för att förstå en viss del av spelet eller dess implementation? Ni får själva försöka hitta alla dessa delar genom att ställa er själva frågor och studera er kod. Till exempel: "Vad behöver jag veta för att förstå hur rotationsproceduren i mitt Tetris fungerar?".
@@ -209,17 +221,24 @@ I hope this illustrates why the world is constructed as it is.
 
 Planning the project and datastructure went very well. It works almost exactly as we had imagined with a lot of other benefits which we didn't consider (such as automatic collison detection). What went bad is that we focused on a lot of other courses and did not have the time to implement everything we wanted to. However we still consider the product to be good enough and easy to extend in order to fullfill our original vision.
 
+
 We probably spent to little time on this project, but at the same time we had a lot of other important things to do. It is hard to say.
 The work load was even until the final weeks when implementation of the graphics required a lot more than expected, a part which was primarily on Eriks shoulders.
 It is hard to say what should have been done in order to improve the workload balance as the graphics couldn't really be started until the basic datastructure existed and by then a lot of time had already passed by. With a few more weeks of project time the workload would probably have ended up being balanced once again.
+
 
 The specification has not really been used. What was useful was all the preparation we did before it but we had to do it anyway.
 What has been useful is a lot of documentation around the specification such as Versions.org, a document where we in a more flexible way wrote down what, when and how things should be implemented.
 We worked as we imagined in the beginning then things broke down towards the end because other courses took up time. When it worked it worked well, when it didn't work things didn't work well.
 
+
 The hardest problem has been to find time when we are both available and not focused on other courses.
-The biggest lesson is probably to go in for the least ambitious thing possible and just try to get a good grade and not care about the project.
-Caring and do things you like, which are also ambitious, only hurts grades.
+One of the biggest lessons has been to create proper documentation of all code as it is created and take the time to visualize datastructures.
+It is much easier to comment and document code while it is being written and if it is already commented it is much easier to change the code.
+Ending the project with commenting code for 15h isn't the best thing to do.
+
+Figuring out how to do things when the datastructure is something very abstract can be very hard to do and in the beginning we had to draw our datastructure on a whiteboard several times to understand where we were in it.
+Create a lot of help functions if only to make the code easier to understand even if it is something very simple.
 
 %\begin{itemize}
 %\item Vad gick bra? Mindre bra?
@@ -235,8 +254,7 @@ Caring and do things you like, which are also ambitious, only hurts grades.
 \section{Tidrapportering}
 %\textit{Den här delen skriver ni i samband med första inlämningen och uppdaterar efterhand}\\
 
-Can be found in separate spreadsheet, which will be found in our git repository.
-So far we have each spent 20 hours on planning this project and this specification.
+Can be found in separate spreadsheet.
 
 %För att veta hur mycket ni har jobbat med projektet, notera antalet timmar och bifoga en timrapport. Börja med detta så fort ni kommit igång med projektspecifikationen! Det är viktigt att ni är ärliga när ni bokför era timmar. Ni lurar bara er själva genom att antingen skriva in mer eller mindre tid, beroende på hur arbetet fortlöpt. Tanken med timrapporteringen är att ni ska få en bättre känsla för hur lång tid en viss uppgift tar att slutföra.
 %Eftersom projektet är ganska litet behöver ni inte göra en speciellt omfattande timrapport. Det räcker med att ni för varje vecka noterar hur många timmar som varje gruppmedlem har arbetat. Notera gärna vad för typ av arbetsuppgift som har utförts. Exempelvis kan ni presentera timmarna i en tabell på följande vis:
