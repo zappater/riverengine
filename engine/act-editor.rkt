@@ -1,5 +1,4 @@
 #lang racket/load
-(define Game_name "The Riverengine act texture editor")
 (require compatibility/mlist)
 (require racket/gui/base)
 (require "actclass.rkt")
@@ -13,6 +12,8 @@
 (require "charclass.rkt")
 (require racket/file)
 (require "texture_defs.rkt")
+
+(define Game_name "The Riverengine act texture editor")
 
 ;Definitions
 (define defult-font-18 (make-font #:size 18)) 
