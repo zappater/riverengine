@@ -19,6 +19,6 @@
       ;(note, there is a difference between two instances of the same object and two instances of identical objects)
       (if (false? target-act)
           (send *current-PC* move-me target-pos)
-          (begin (send *current-act* remove-obj *current-PC* (my-pos))
+          (begin (send *current-act* remove-obj *current-PC* (send *current-PC* my-pos))
                  (transition target-act)
                  (send *current-act* move-obj *current-PC* #f target-pos))))))
