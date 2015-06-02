@@ -53,7 +53,9 @@
   (new dialog-node%
        [text "Hi, I'm an NPC"]
        [option "1) Teleport 2) Goodbye"]
-       [actions (list (send dialogue-teleport interact) 'end)]))
+       [actions (list teleport 'end)]))
+(define (teleport)
+  (send dialogue-teleport interact)) ;might cause a bug because the dialog_definitions file doesn't know what teleport evalutes to
 (define knightNPCdialog
   (new my-dialog%))
 (send knightNPCdialog add-node knightNPCdialog-node-1 (list 1))
