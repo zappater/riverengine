@@ -23,8 +23,8 @@
 (define lvl3 (make-new-level 50 50)) 
 (define lvl2 (make-new-level 50 50)) 
 (define lvl1 (make-new-level 50 50)) 
-(define act-name ((lambda (lst)  (new act% [levels lst])) (mcons lvl1  (mcons lvl2  (mcons lvl3  (mcons lvl4  (mcons lvl5  (mcons lvl6  (mcons lvl7  (mcons lvl8  (mcons lvl9  (mcons lvl10  '())))))))))))) 
-(transition act-name)
+(define island ((lambda (lst)  (new act% [levels lst])) (mcons lvl1  (mcons lvl2  (mcons lvl3  (mcons lvl4  (mcons lvl5  (mcons lvl6  (mcons lvl7  (mcons lvl8  (mcons lvl9  (mcons lvl10  '())))))))))))) 
+
 (send *current-act* remove-texture-obj '(1 18 19)) 
 (send *current-act* add-texture-obj '(1 15 16)  50x50_stratagus_tileset165 ) 
 (send *current-act* add-texture-obj '(1 15 17)  50x50_stratagus_tileset165 ) 

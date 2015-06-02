@@ -16,7 +16,10 @@
 (require "Island_act.rkt")
 (require "PCclass.rkt")
 (require "dialog_definitions.rkt")
+(require "arenaact.rkt")
 (provide (all-defined-out))
+
+(transition island) ;makes island the start act of the game
 
 ;object defs
 (define mypos-panel
@@ -50,7 +53,7 @@
   (new dialog-node%
        [text "Hi, I'm an NPC"]
        [option "1) Teleport 2) Goodbye"]
-       [actions (list 'end)]))
+       [actions (list (send dialogue-teleport interact) 'end)]))
 (define knightNPCdialog
   (new my-dialog%))
 (send knightNPCdialog add-node knightNPCdialog-node-1 (list 1))
@@ -60,6 +63,10 @@
 (define teleport2
   (new teleport%
        [target-pos '(2 13 9)]))
+(define dialogue-teleport
+  (new teleport%
+       [target-act arena]
+       [target-pos '(2 10 10)]))
 (change-control-scheme ingame-controls)
 (define mainchar 
   (new PC%
@@ -88,6 +95,7 @@
              #t)]))
 (define camera-obj mainchar) ;bör ändras till dedikerad kamera hanterare!
 ;places objects in the world
+
 (change-PC mainchar)
 (send mainchar move-me '(2 15 9))
 (send knightNPC move-me '(2 15 10))
