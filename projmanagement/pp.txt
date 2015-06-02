@@ -1,0 +1,27 @@
+Outline
+-------------
+2D game engine (front page)
+The idea (brief description of the project)
+Datastructure (picture of how all classes are linked)
+---
+Acts (what does an act do and how does it work?)
+Levels (how are they written and why?)
+---
+Objects (picture of how all object classes are linked)
+Granpa (why do we want all objects to have these properties?)
+Characters (why do all characters exist this way and why no NPC class?)
+Player Character (whats different and why is interact implemented that way?)
+Other classes (things which were not implemented and how they would work in the existing datastructure)
+---
+Communication - Globals (how does objects communicate with each other and why do they use acts as intermediaries?)
+Drawing the world (outline/picture of all parts for drawing the game on the screen)
+Draw (how does draw work and why?)
+Textures (why did we choose to do it this way?)
+UI (why this is a different system and how it works)
+Input (how we wanted to handle it and the compromise we did and why)
+A map editor (how it is implemented and a short demonstration)
+Demo (a short demonstration of what you can make with our game engine)
+----
+Problems (What took more time than expected and how Racket makes things hard)
+The Future (What will happen to the project)
+End (last page)

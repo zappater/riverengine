@@ -1,0 +1,20 @@
+The following is a plan for implementing a lot of shit
+The idea is to have a functioning combat and inventory system at the end
+
+A fun thing to note, implementing multiplayer combat will be easy
+just make sure the act changes *current-PC* everytime a turn ends.
+Of course this isn't networked multiplayer but it is still multiplayer
+
+* Items
+objects
+** Base modifiers
+All items will have:
+A use function, similar to interact for characters
+
+* Inventory
+object
+
+* Combat act
+A normal act but with type combat-act instead and
+it handels turns so combat is turn-based
+
