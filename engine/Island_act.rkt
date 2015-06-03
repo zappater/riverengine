@@ -8,10 +8,14 @@
 (require "globals.rkt")
 (require "UIdefines.rkt")
 (require "key-handler.rkt")
+(require "dialog_definitions.rkt")
+(require "teleportclass.rkt")
 (require "textureclass.rkt")
 (require "charclass.rkt")
 (require racket/file)
 (require "texture_defs.rkt")
+(require "arenaact.rkt")
+(require "PCclass.rkt")
 (provide (all-defined-out))
 (define lvl10 (make-new-level 50 50)) 
 (define lvl9 (make-new-level 50 50)) 
@@ -24,7 +28,56 @@
 (define lvl2 (make-new-level 50 50)) 
 (define lvl1 (make-new-level 50 50)) 
 (define island ((lambda (lst)  (new act% [levels lst])) (mcons lvl1  (mcons lvl2  (mcons lvl3  (mcons lvl4  (mcons lvl5  (mcons lvl6  (mcons lvl7  (mcons lvl8  (mcons lvl9  (mcons lvl10  '())))))))))))) 
-
+(transition island)
+(define (teleport4)
+  (send dialogue-teleport interact)) ;might cause a bug because the dialog_definitions file doesn't know what teleport evalutes to
+(define knightNPCdialog-node-1
+  (new dialog-node%
+       [text "Hi, I'm an NPC"]
+       [option "1) Teleport 2) Goodbye"]
+       [actions (list teleport4 'end)]))
+(define knightNPCdialog
+  (new my-dialog%))
+(send knightNPCdialog add-node knightNPCdialog-node-1 (list 1))
+(define teleport1
+  (new teleport%
+       [target-pos '(2 20 32)]))
+(define teleport2
+  (new teleport%
+       [target-pos '(2 13 9)]))
+(define dialogue-teleport
+  (new teleport%
+       [target-act arena]
+       [target-pos '(2 20 20)]))
+(define knightNPC
+  (new char%
+       [texture (list (read-bitmap "50x50_Knight (1).png")
+                      (read-bitmap "50x50_Knight (3).png")
+                      (read-bitmap "50x50_Knight (2).png")
+                      (read-bitmap "50x50_Knight (4).png"))]
+       [facing 'left]
+       [use ((lambda (local-bol)
+               (lambda () (if local-bol
+                              (begin
+                                (send dialog-handler dialog-active #t knightNPCdialog)
+                                (send knightNPCdialog initialize-dialog)
+                                (send dialog-handler display-dialog knightNPCdialog)
+                                (set! local-bol #f))
+                              (begin
+                                (send dialog-handler dialog-active #f)
+                                (set! local-bol #t)))))
+             #t)]))
+(define mainchar 
+  (new PC%
+       [texture (list (read-bitmap "50x50_Magesprite (1).png") 
+                      (read-bitmap "50x50_Magesprite (3).png") 
+                      (read-bitmap "50x50_Magesprite (2).png") 
+                      (read-bitmap "50x50_Magesprite (4).png"))]
+       [facing 'right]))
+(send knightNPC move-me '(2 15 10))
+(send teleport1 move-me '(2 13 8))
+(send teleport2 move-me '(2 20 33))
+(send mainchar move-me '(2 15 9))
 (send *current-act* remove-texture-obj '(1 18 19)) 
 (send *current-act* add-texture-obj '(1 15 16)  50x50_stratagus_tileset165 ) 
 (send *current-act* add-texture-obj '(1 15 17)  50x50_stratagus_tileset165 ) 
