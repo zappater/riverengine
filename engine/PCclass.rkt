@@ -1,6 +1,5 @@
 #lang racket
 (require "charclass.rkt")
-(require "actclass.rkt")
 (require "globals.rkt")
 (provide (all-defined-out))
 

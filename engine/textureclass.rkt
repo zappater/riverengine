@@ -1,7 +1,5 @@
 #lang racket
 (require "granpaclass.rkt")
-(require "supportfunctions.rkt")
-(require "globals.rkt")
 (provide (all-defined-out))
 
 (define texture%
