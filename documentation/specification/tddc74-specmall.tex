@@ -210,6 +210,30 @@ A cell can only be occupied by one object at a time. As such this has the intere
 Now the character will be able to walk under the bridge when on level two and on top of the bridge when on level four. Moving the character between levels is easiest done with the already implemented teleport object, which when used tells the act to move the character to a prespecified place.
 I hope this illustrates why the world is constructed as it is.
 
+\subsubsection{Features}
+The following features were implemented in the final product.
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Feature}\\ \hline
+A class library containing the basic objects used in a game \\ \hline
+Basic datastructure with functions for modifying data \\ \hline
+Rendering of 2D graphics \\ \hline
+Rendering of 2D user interface \\ \hline
+Graphic act editor, allowing textures to be placed using a mouse \\ \hline
+Dialogue implemented as graphs with automatic line breaks \\ \hline
+Dialogue which can be interacted with and affect the world and player \\ \hline
+Input from keyboard and mouse, with a control-scheme object allowing user specific controls \\ \hline
+Proof of concept game, including two acts, two NPCs, interactable dialogue and two teleporters \\ \hline
+\end{tabular}
+
+%The class library contains five classes currently but can easily be extended to include hundreds with their own functionality.
+%The most important functionality it contains is for objects to have textures, communicate with an act and/or other objects and moving the objects.
+%For more about the datastructure, see the previous section.
+
+
+%The renderer renders the information stored in the act, with a user selected resolution and window size. It also uses a user interface object to render a UI, based on anchorpoints, on top of the rendered world.
+%The act editor uses a modified version of the renderer and a specific control-scheme. It then outputs every textureplacement to a file which can then be used to create an act.
+
 
 %Här ska ni förklara hur era datastrukturer och algoritmer fungerar. Det bästa sättet att tänka är lite grann ur någon annan grupps perspektiv. Vad skulle någon annan behöva veta för att förstå en viss del av spelet eller dess implementation? Ni får själva försöka hitta alla dessa delar genom att ställa er själva frågor och studera er kod. Till exempel: "Vad behöver jag veta för att förstå hur rotationsproceduren i mitt Tetris fungerar?".
 %Tanken är inte att ni ska skriva och svara på frågor. Detta kan ni snarare se som hjälp för att skriva denna delen. Det finns även ytterligare resurser på kurshemsidan, där ni kan hämta inspiration.
