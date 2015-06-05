@@ -66,14 +66,7 @@
     (define/public (interact) 
       ;all objects can be interacted with but as default nothing happens
       ;use override to provide functionality
-      void)
-    
-    ;DEBUG!!!!!!!
-    (define/public (debug-get-pos)
-      ;this should never be used except for debugging
-      ;as the position returned may be wrong
-      position)))
-
+      void)))
 (define char%
   ;the basic class for every character, it is good enough for use as an NPC however it cannot be used for a PC (see PCclass)
   (class granpa%

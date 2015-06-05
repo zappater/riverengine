@@ -1,6 +1,6 @@
 #lang racket
 (require racket/gui/base)
-(require "textureclass.rkt")
+(require "baseclasses.rkt")
 (provide (all-defined-out))
 
 ;new textures 

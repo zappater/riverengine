@@ -2,7 +2,7 @@
 (require compatibility/mlist)
 (require racket/gui/base)
 (require "actclass.rkt")
-(require "granpaclass.rkt")
+(require "baseclasses.rkt")
 (require "leveldatastructure.rkt")
 (require "supportfunctions.rkt")
 (require "globals.rkt")

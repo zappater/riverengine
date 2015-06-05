@@ -3,6 +3,8 @@
 (require "globals.rkt")
 (provide (all-defined-out))
 
+;object library contains all pre-made specific use objects
+;examples include teleporters and enemies
 
 (define teleport%
   ;a object used for teleporting characters within an act or between acts
