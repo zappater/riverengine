@@ -200,19 +200,22 @@ For a lot more expansive explanations see the code.
 While it is a 2D game engine, the world is built in three dimensions.
 A character interacts on a 2D surface called a level, it can only interact with things on its own level.
 A level is a mutable datastructure built up as a matrix with each cell containing one object and the coordinates of the cell, if the cell is occupied. An empty cell contains an empty list '() and the coordinates of the cell. 
-
-
+\\
+\\
 These levels are then layered on top of each other into a three dimensional datastructure. This is done by placing them into a list (immutable). It is immutable as once a complete world has been built the number of levels should never change while the content in each level may change.
 This layering of levels is done in a datastructure called an act, it is essentially a map of the game but as map has other uses in programming I will from now on only use the term act. A map is implemented as an object and functions essentially as the game server. It controls where everything is, it decides where everything is and adds, moves and removes everything from the game world.
-
-
+\\
+\\
 A cell can only be occupied by one object at a time. As such this has the interesting implicating that collision detection is automatically implemented. If you want to prevent a character from being able to walk somewhere just place an object in that cell. This is also why the world is constructed as a three dimensional world. If you want to have grass that the character can walk on you need to put the grass on a level lower than that which the character is on. This also allows bridges to be built by for example making a world with four levels. On level one you put a bit of ground, on level two nothing and on level three you put the bridge and on level four nothing.
 Now the character will be able to walk under the bridge when on level two and on top of the bridge when on level four. Moving the character between levels is easiest done with the already implemented teleport object, which when used tells the act to move the character to a prespecified place.
 I hope this illustrates why the world is constructed as it is.
 
 \subsubsection{Features}
 The following features were implemented in the final product.
-\begin{tabular}{|c|c|c|}
+
+\bigskip
+
+\begin{tabular}{|l|}
 \hline
 \textbf{Feature}\\ \hline
 A class library containing the basic objects used in a game \\ \hline
@@ -222,17 +225,22 @@ Rendering of 2D user interface \\ \hline
 Graphic act editor, allowing textures to be placed using a mouse \\ \hline
 Dialogue implemented as graphs with automatic line breaks \\ \hline
 Dialogue which can be interacted with and affect the world and player \\ \hline
-Input from keyboard and mouse, with a control-scheme object allowing user specific controls \\ \hline
-Proof of concept game, including two acts, two NPCs, interactable dialogue and two teleporters \\ \hline
+Input from keyboard and mouse \\ \hline
+Proof of concept game \\ \hline
 \end{tabular}
 
-%The class library contains five classes currently but can easily be extended to include hundreds with their own functionality.
-%The most important functionality it contains is for objects to have textures, communicate with an act and/or other objects and moving the objects.
-%For more about the datastructure, see the previous section.
+\bigskip
 
+The class library contains five classes currently but can easily be extended to include hundreds with their own functionality.
+The most important functionality it contains is for objects to have textures, communicate with an act and/or other objects and moving the objects.
+For more about the datastructure, see the previous section. \\
+The renderer renders the information stored in the act, with a user selected resolution and window size. It also uses a user interface object to render a UI, based on anchorpoints, on top of the rendered world.
+The act editor uses a modified version of the renderer and a pre-defined control-scheme. It then outputs every textureplacement to a file which can be used to create an act. \\ \\
+Dialogue is implemented as its own class structure. A dialogue consists of nodes connected by edges (basic graph theory), each node contains a part of the dialogue and information about which nodes it is connected to (its edges).
+These are then handled by a dialogue object which also automatically inserts newlines every 20 characters (20 was choosen because it looks good) up to five lines of dialogue (maximum of 100 characters per node) and on a sixth line outputs all edges and other possible actions (in the demo we implemented teleportation through dialogue as another possible action). \\
+In the demo the world is interacted with using the arrow keys and spacebar, this is defined in the game data and can be changed by a developer easily by using our control scheme object. It supports both mouse and keyboard controls (which is demonstrated in the act editor which is controlled using both keyboard and mouse). \\
 
-%The renderer renders the information stored in the act, with a user selected resolution and window size. It also uses a user interface object to render a UI, based on anchorpoints, on top of the rendered world.
-%The act editor uses a modified version of the renderer and a specific control-scheme. It then outputs every textureplacement to a file which can then be used to create an act.
+Finally a proof of concept game was implemented. The demo consists of two acts, in the first act you can use two teleporters to quickly move between two locations. These exist to show the class library in action as the teleporters took less then 20 minutes to implement and add to the world. There is also a NPC to talk to, there only exist two actions, teleport and end conversation, as we didn't have the time to write a longer dialogue. The end conversation option simply ends the dialogue while the teleport option moves the character to the second act. In this act there is only a NPC to talk to which allows you to so to speak fly, it simply puts you on a higher level thus allowing you to move above all obstacles.
 
 
 %Här ska ni förklara hur era datastrukturer och algoritmer fungerar. Det bästa sättet att tänka är lite grann ur någon annan grupps perspektiv. Vad skulle någon annan behöva veta för att förstå en viss del av spelet eller dess implementation? Ni får själva försöka hitta alla dessa delar genom att ställa er själva frågor och studera er kod. Till exempel: "Vad behöver jag veta för att förstå hur rotationsproceduren i mitt Tetris fungerar?".
@@ -244,17 +252,14 @@ Proof of concept game, including two acts, two NPCs, interactable dialogue and t
 %Detta avsnittet är en väldigt viktig del av projektspecifikationen. Här ska ni tänka tillbaka och utvärdera projektet (något som alltid ska göra efter ett projekt). Som en hjälp på vägen kan ni utgå från följande frågeställningar:
 
 Planning the project and datastructure went very well. It works almost exactly as we had imagined with a lot of other benefits which we didn't consider (such as automatic collison detection). What went bad is that we focused on a lot of other courses and did not have the time to implement everything we wanted to. However we still consider the product to be good enough and easy to extend in order to fullfill our original vision.
-
-
-We probably spent to little time on this project, but at the same time we had a lot of other important things to do. It is hard to say.
+\\
+We probably spent too little time on this project, but at the same time we had a lot of other important things to do. It is hard to say.
 The work load was even until the final weeks when implementation of the graphics required a lot more than expected, a part which was primarily on Eriks shoulders.
 It is hard to say what should have been done in order to improve the workload balance as the graphics couldn't really be started until the basic datastructure existed and by then a lot of time had already passed by. With a few more weeks of project time the workload would probably have ended up being balanced once again.
-
-
+\\ \\
 The specification has not really been used. What was useful was all the preparation we did before it but we had to do it anyway.
 What has been useful is a lot of documentation around the specification such as Versions.org, a document where we in a more flexible way wrote down what, when and how things should be implemented.
 We worked as we imagined in the beginning then things broke down towards the end because other courses took up time. When it worked it worked well, when it didn't work things didn't work well.
-
 
 The hardest problem has been to find time when we are both available and not focused on other courses.
 One of the biggest lessons has been to create proper documentation of all code as it is created and take the time to visualize datastructures.
